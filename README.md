@@ -49,4 +49,4 @@ Team members: Please add your favorite quote below, including your name, and com
 
 Kristin Lind: "The joy we feel has little to do with the circumstances of our lives and everything to do with the focus of our lives." — President Russell M. Nelson, Joy and Spiritual Survival (2016)
 
-
+Abbigail Nelson: "The unique burdens in each of our lives helps us to rely upon the merits, mercy, and grace of the Holy Messiah." - Elder David A. Bednar Of the Quorum of the Twelve Apostles, Bear Up Their Burdens with Ease (April 2014 Conference)
