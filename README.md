@@ -52,3 +52,5 @@ Kristin Lind: "The joy we feel has little to do with the circumstances of our li
 Abbigail Nelson: "The unique burdens in each of our lives helps us to rely upon the merits, mercy, and grace of the Holy Messiah." - Elder David A. Bednar Of the Quorum of the Twelve Apostles, Bear Up Their Burdens with Ease (April 2014 Conference)
 
 Essodong N'GNAMA: "When we put God first, all other things fall into their proper place or drop out of our lives." - President Ezra Taft Benson, The Great Commandment : Love the Lord (April 1985 Conference) 
+
+Favour Ojobor: "True friendship is a plant of slow growth." — George Washington
