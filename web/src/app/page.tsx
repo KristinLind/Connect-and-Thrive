@@ -1,4 +1,6 @@
+
 import Image from "next/image";
+import Link from "next/link";
 import styles from "./page.module.css";
 
 const activities = [
@@ -39,12 +41,12 @@ export default function Home() {
     <div className={styles.page}>
       {/* Navigation */}
       <header className={styles.header}>
-        <a href="/" className={styles.logo}>
+        <Link href="/" className={styles.logo}>
           Connect <span>&</span> Thrive
-        </a>
+        </Link>
 
         <nav className={styles.nav} aria-label="Main navigation">
-          <a href="/">Home</a>
+          <Link href="/">Home</Link>
           <a href="#activities">Explore Activities</a>
           <a href="#about">About Us</a>
           <a href="#join" className={styles.navButton}>
@@ -75,9 +77,8 @@ export default function Home() {
             <h1>Find Your People. Thrive Together.</h1>
 
             <p>
-              Discover meaningful friendships through
-              exciting activities, shared interests,
-              and opportunities to make a difference.
+              Discover meaningful friendships through exciting activities,
+              shared interests, and opportunities to make a difference.
             </p>
 
             <a href="#activities" className={styles.primaryButton}>
@@ -95,14 +96,11 @@ export default function Home() {
           <h2>More Than Activities. A Place to Belong.</h2>
 
           <p>
-            Connect & Thrive is a faith-centered community
-            where young adults ages 20-35 can build lasting
-            friendships through wholesome activities and
-            shared experiences.
-
-            Join an activity, organize your own gathering,
-            or discover new adventures with people who
-            share your interests and values.
+            Connect & Thrive is a faith-centered community where young adults
+            ages 20-35 can build lasting friendships through wholesome
+            activities and shared experiences. Join an activity, organize your
+            own gathering, or discover new adventures with people who share
+            your interests and values.
           </p>
         </section>
 
@@ -113,11 +111,11 @@ export default function Home() {
               DISCOVER SOMETHING NEW
             </span>
 
-            <h2>Find Activities You'll Love</h2>
+            <h2>Find Activities You&apos;ll Love</h2>
 
             <p>
-              Explore your interests, try something new,
-              and connect with people who enjoy the same things.
+              Explore your interests, try something new, and connect with
+              people who enjoy the same things.
             </p>
           </div>
 
@@ -150,8 +148,8 @@ export default function Home() {
           <h2>Your Next Great Friendship Starts Here.</h2>
 
           <p>
-            New experiences, meaningful connections,
-            and a welcoming community are waiting for you.
+            New experiences, meaningful connections, and a welcoming
+            community are waiting for you.
           </p>
 
           <a href="#activities" className={styles.joinButton}>
@@ -165,8 +163,8 @@ export default function Home() {
         <h3>Connect & Thrive</h3>
 
         <p>
-          Building friendships. Creating connections.
-          Strengthening communities.
+          Building friendships. Creating connections. Strengthening
+          communities.
         </p>
 
         <p className={styles.copyright}>
