@@ -47,7 +47,7 @@ export default function Home() {
 
         <nav className={styles.nav} aria-label="Main navigation">
           <Link href="/">Home</Link>
-          <a href="#activities">Explore Activities</a>
+          <Link href="/activities">Explore Activities</Link>
           <a href="#about">About Us</a>
           <a href="#join" className={styles.navButton}>
             Join Us
@@ -81,9 +81,9 @@ export default function Home() {
               shared interests, and opportunities to make a difference.
             </p>
 
-            <a href="#activities" className={styles.primaryButton}>
+            <Link href="/activities" className={styles.primaryButton}>
               Explore Activities
-            </a>
+            </Link>
           </div>
         </section>
 
