@@ -1,0 +1,94 @@
+.intro {
+    padding: 75px 6% 45px;
+    text-align: center;
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.intro h1 {
+    font-size: clamp(2.2rem, 5vw, 3.5rem);
+    line-height: 1.2;
+    margin: 18px 0;
+}
+
+.intro p {
+    max-width: 700px;
+    margin: 0 auto;
+    font-size: 1.1rem;
+    line-height: 1.8;
+}
+
+.eventsSection {
+    padding: 70px 6%;
+    text-align: center;
+}
+
+.eventsPlaceholder {
+    max-width: 650px;
+    margin: 35px auto 0;
+    padding: 45px 25px;
+    background-color: #f7f8f6;
+    border: 1px solid #e3e7e1;
+    border-radius: 16px;
+    text-align: center;
+}
+
+.calendarIcon {
+    display: block;
+    font-size: 40px;
+    margin-bottom: 15px;
+}
+
+.eventsPlaceholder h3 {
+    font-size: 1.5rem;
+    margin-bottom: 12px;
+    color: #26352b;
+}
+
+.eventsPlaceholder p {
+    font-size: 1rem;
+    line-height: 1.7;
+    color: #626b64;
+}
+
+.backLink {
+    text-align: center;
+    padding: 0 20px 65px;
+}
+
+.backLink a {
+    color: inherit;
+    font-weight: 600;
+    text-decoration: underline;
+    text-underline-offset: 4px;
+}
+
+.backLink a:hover {
+    opacity: 0.75;
+}
+
+@media (max-width: 700px) {
+    .intro {
+        padding: 55px 5% 30px;
+    }
+
+    .intro p {
+        font-size: 1rem;
+    }
+
+    .eventsSection {
+        padding: 50px 5%;
+    }
+
+    .eventsPlaceholder {
+        padding: 35px 20px;
+    }
+
+    .eventsPlaceholder h3 {
+        font-size: 1.3rem;
+    }
+
+    .backLink {
+        padding-bottom: 45px;
+    }
+}
