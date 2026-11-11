@@ -48,13 +48,14 @@ export default function ExploreActivities() {
         <Link href="/" className={styles.logo}>
           Connect <span>&</span> Thrive
         </Link>
+
         <nav className={styles.nav}>
           <Link href="/">Home</Link>
           <Link href="/activities">Explore Activities</Link>
-          <a href="/#about">About Us</a>
-          <a href="/#join" className={styles.navButton}>
+          <Link href="/#about">About Us</Link>
+          <Link href="/#join" className={styles.navButton}>
             Join Us
-          </a>
+          </Link>
         </nav>
       </header>
 

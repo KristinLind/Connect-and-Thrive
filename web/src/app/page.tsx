@@ -1,38 +1,44 @@
-
 import Image from "next/image";
 import Link from "next/link";
 import styles from "./page.module.css";
+
 
 const activities = [
   {
     title: "Outdoor Adventures",
     description: "Explore new places and make lasting memories.",
     image: "/images/rafting.webp",
+    href: "/activities/outdoor-adventures",
   },
   {
     title: "Sports & Recreation",
     description: "Stay active, have fun, and meet new friends.",
     image: "/images/beach volleyball.webp",
+    href: "/activities/sports-recreation",
   },
   {
     title: "Cooking Together",
     description: "Share recipes, laughter, and delicious food.",
     image: "/images/cooking dumplings.webp",
+    href: "/activities/cooking-together",
   },
   {
     title: "Games & Social Nights",
     description: "Enjoy friendly competition and great company.",
     image: "/images/billiards.webp",
+    href: "/activities/games-social-nights",
   },
   {
     title: "Service Opportunities",
     description: "Make a difference while connecting with others.",
     image: "/images/service meal.webp",
+    href: "/activities/service-opportunities",
   },
   {
     title: "Learning & Friendship",
     description: "Discover shared interests and grow together.",
     image: "/images/book group.webp",
+    href: "/activities/learning-friendship",
   },
 ];
 
@@ -121,8 +127,9 @@ export default function Home() {
 
           <div className={styles.activityGrid}>
             {activities.map((activity) => (
-              <article
+              <Link
                 key={activity.title}
+                href={activity.href}
                 className={styles.activityCard}
               >
                 <div className={styles.activityImage}>
@@ -138,7 +145,7 @@ export default function Home() {
                   <h3>{activity.title}</h3>
                   <p>{activity.description}</p>
                 </div>
-              </article>
+              </Link>
             ))}
           </div>
         </section>
