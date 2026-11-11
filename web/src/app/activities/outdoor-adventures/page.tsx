@@ -59,39 +59,49 @@ const adventures = [
 ];
 
 
+
 export default function OutdoorAdventures() {
   return (
-    <main className={styles.page}>
-      <div className={styles.container}>
-        <Link href="/activities" className={styles.backLink}>
-          ← Back to all activities
-        </Link>
+    <div className={styles.page}>
+      <main className={styles.main}>
+        <div className={styles.heading}>
+          <span className={styles.eyebrow}>
+            EXPLORE THE OUTDOORS
+          </span>
 
-        <header className={styles.heading}>
-          <p className={styles.eyebrow}>EXPLORE THE OUTDOORS</p>
           <h1>Outdoor Adventures</h1>
+
           <p>
             Discover new places, enjoy exciting experiences,
             and build lasting friendships along the way.
           </p>
-        </header>
 
-        <section className={styles.grid} aria-label="Outdoor activity ideas">
+          <Link href="/activities" className={styles.backLink}>
+            ← Back to all activities
+          </Link>
+        </div>
+
+        <div className={styles.grid}>
           {adventures.map((adventure) => (
-            <article className={styles.card} key={adventure.title}>
+            <article
+              key={adventure.title}
+              className={styles.card}
+            >
               <img
                 src={adventure.image}
                 alt={adventure.title}
                 className={styles.cardImage}
               />
+
               <div className={styles.cardContent}>
                 <h2>{adventure.title}</h2>
                 <p>{adventure.description}</p>
               </div>
             </article>
           ))}
-        </section>
-      </div>
-    </main>
+        </div>
+      </main>
+    </div>
   );
 }
+
