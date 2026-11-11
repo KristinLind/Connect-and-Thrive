@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import homeStyles from "../../page.module.css";
 import styles from "./page.module.css";
+import UpcomingEventsBanner from "@/components/UpcomingEventsBanner";
 
 const activities = [
   {
@@ -42,6 +43,12 @@ const activities = [
   },
 ];
 
+const placeholders = [
+  "More Learning Activities Coming Soon",
+  "More Creative Activities Coming Soon",
+  "More Friendship Activities Coming Soon",
+];
+
 export default function LearningFriendshipPage() {
   return (
     <div className={homeStyles.page}>
@@ -50,32 +57,51 @@ export default function LearningFriendshipPage() {
           Connect <span>&</span> Thrive
         </Link>
 
-        <nav className={homeStyles.nav} aria-label="Main navigation">
+        <nav
+          className={homeStyles.nav}
+          aria-label="Main navigation"
+        >
           <Link href="/">Home</Link>
-          <Link href="/activities">Explore Activities</Link>
+          <Link href="/activities">
+            Explore Activities
+          </Link>
           <Link href="/#about">About Us</Link>
-          <Link href="/#join" className={homeStyles.navButton}>
+          <Link
+            href="/#join"
+            className={homeStyles.navButton}
+          >
             Join Us
           </Link>
         </nav>
       </header>
 
-      <main>
-        <section className={styles.intro}>
-          <span className={homeStyles.sectionLabel}>
-            LEARNING • FRIENDSHIP • GROWTH
-          </span>
-          <h1>Learning & Friendship</h1>
-          <p>
-            Learn something new, share your talents,
-            and build lasting friendships. Discover
-            activities that bring people together
-            through learning and shared interests.
-          </p>
+      <main className={styles.page}>
+        <section className={styles.titleBanner}>
+          <div className={styles.heading}>
+            <span className={styles.eyebrow}>
+              LEARNING • FRIENDSHIP • GROWTH
+            </span>
+
+            <h1>Learning & Friendship</h1>
+
+            <p>
+              Learn something new, share your talents,
+              and build lasting friendships. Discover
+              activities that bring people together
+              through learning and shared interests.
+            </p>
+
+            <Link
+              href="/activities"
+              className={styles.backLink}
+            >
+              ← Back to Explore Activities
+            </Link>
+          </div>
         </section>
 
-        <section className={homeStyles.activities}>
-          <div className={homeStyles.sectionHeading}>
+        <section className={styles.main}>
+          <div className={styles.sectionHeading}>
             <h2>Activities to Explore</h2>
             <p>
               Discover new interests, develop skills,
@@ -83,56 +109,54 @@ export default function LearningFriendshipPage() {
             </p>
           </div>
 
-          <div className={homeStyles.activityGrid}>
+          <div className={styles.grid}>
             {activities.map((activity) => (
               <article
                 key={activity.title}
-                className={homeStyles.activityCard}
+                className={styles.card}
               >
-                <div className={homeStyles.activityImage}>
+                <div className={styles.imageWrapper}>
                   <Image
                     src={activity.image}
                     alt={activity.title}
                     fill
-                    sizes="(max-width: 700px) 100vw, (max-width: 1000px) 50vw, 33vw"
+                    sizes="(max-width: 600px) 100vw, (max-width: 900px) 50vw, 33vw"
+                    className={styles.cardImage}
                   />
                 </div>
 
-                <div className={homeStyles.activityContent}>
-                  <h3>{activity.title}</h3>
+                <div className={styles.cardContent}>
+                  <h2>{activity.title}</h2>
                   <p>{activity.description}</p>
+                </div>
+              </article>
+            ))}
+
+            {placeholders.map((title) => (
+              <article
+                key={title}
+                className={`${styles.card} ${styles.placeholderCard}`}
+              >
+                <div className={styles.placeholderImage}>
+                  <span aria-hidden="true">+</span>
+                </div>
+
+                <div className={styles.cardContent}>
+                  <h2>{title}</h2>
+                  <p>
+                    Another opportunity to learn,
+                    share interests, and build
+                    friendships will be added soon.
+                  </p>
                 </div>
               </article>
             ))}
           </div>
         </section>
 
-        <section className={styles.eventsSection}>
-          <div className={homeStyles.sectionHeading}>
-            <h2>Upcoming Events</h2>
-            <p>
-              Find opportunities to learn new skills,
-              share interests, and build friendships.
-            </p>
-          </div>
-
-          <div className={styles.eventsPlaceholder}>
-            <span className={styles.calendarIcon} aria-hidden="true">
-              📅
-            </span>
-            <h3>No upcoming events yet</h3>
-            <p>
-              Learning events created by community
-              members will appear here.
-            </p>
-          </div>
-        </section>
-
-        <div className={styles.backLink}>
-          <Link href="/activities">
-            ← Back to Explore Activities
-          </Link>
-        </div>
+        <UpcomingEventsBanner
+          description="Find opportunities to learn new skills, share interests, and build friendships."
+        />
       </main>
 
       <footer className={homeStyles.footer}>
@@ -148,3 +172,4 @@ export default function LearningFriendshipPage() {
     </div>
   );
 }
+

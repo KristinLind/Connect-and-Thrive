@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import homeStyles from "../../page.module.css";
 import styles from "./page.module.css";
+import UpcomingEventsBanner from "@/components/UpcomingEventsBanner";
 
 const services = [
   {
@@ -42,6 +43,12 @@ const services = [
   },
 ];
 
+const placeholders = [
+  "More Service Projects Coming Soon",
+  "More Community Activities Coming Soon",
+  "More Ways to Help Coming Soon",
+];
+
 export default function ServiceOpportunitiesPage() {
   return (
     <div className={homeStyles.page}>
@@ -50,32 +57,51 @@ export default function ServiceOpportunitiesPage() {
           Connect <span>&</span> Thrive
         </Link>
 
-        <nav className={homeStyles.nav} aria-label="Main navigation">
+        <nav
+          className={homeStyles.nav}
+          aria-label="Main navigation"
+        >
           <Link href="/">Home</Link>
-          <Link href="/activities">Explore Activities</Link>
+          <Link href="/activities">
+            Explore Activities
+          </Link>
           <Link href="/#about">About Us</Link>
-          <Link href="/#join" className={homeStyles.navButton}>
+          <Link
+            href="/#join"
+            className={homeStyles.navButton}
+          >
             Join Us
           </Link>
         </nav>
       </header>
 
-      <main>
-        <section className={styles.intro}>
-          <span className={homeStyles.sectionLabel}>
-            SERVICE • KINDNESS • CONNECTION
-          </span>
-          <h1>Service Opportunities</h1>
-          <p>
-            Make a difference while building friendships
-            and strengthening your community. Discover
-            meaningful ways to serve others and connect
-            with people who care.
-          </p>
+      <main className={styles.page}>
+        <section className={styles.titleBanner}>
+          <div className={styles.heading}>
+            <span className={styles.eyebrow}>
+              SERVICE • KINDNESS • CONNECTION
+            </span>
+
+            <h1>Service Opportunities</h1>
+
+            <p>
+              Make a difference while building friendships
+              and strengthening your community. Discover
+              meaningful ways to serve others and connect
+              with people who care.
+            </p>
+
+            <Link
+              href="/activities"
+              className={styles.backLink}
+            >
+              ← Back to Explore Activities
+            </Link>
+          </div>
         </section>
 
-        <section className={homeStyles.activities}>
-          <div className={homeStyles.sectionHeading}>
+        <section className={styles.main}>
+          <div className={styles.sectionHeading}>
             <h2>Ways to Serve</h2>
             <p>
               Explore service opportunities,
@@ -84,56 +110,54 @@ export default function ServiceOpportunitiesPage() {
             </p>
           </div>
 
-          <div className={homeStyles.activityGrid}>
+          <div className={styles.grid}>
             {services.map((service) => (
               <article
                 key={service.title}
-                className={homeStyles.activityCard}
+                className={styles.card}
               >
-                <div className={homeStyles.activityImage}>
+                <div className={styles.imageWrapper}>
                   <Image
                     src={service.image}
                     alt={service.title}
                     fill
-                    sizes="(max-width: 700px) 100vw, (max-width: 1000px) 50vw, 33vw"
+                    sizes="(max-width: 600px) 100vw, (max-width: 900px) 50vw, 33vw"
+                    className={styles.cardImage}
                   />
                 </div>
 
-                <div className={homeStyles.activityContent}>
-                  <h3>{service.title}</h3>
+                <div className={styles.cardContent}>
+                  <h2>{service.title}</h2>
                   <p>{service.description}</p>
+                </div>
+              </article>
+            ))}
+
+            {placeholders.map((title) => (
+              <article
+                key={title}
+                className={`${styles.card} ${styles.placeholderCard}`}
+              >
+                <div className={styles.placeholderImage}>
+                  <span aria-hidden="true">+</span>
+                </div>
+
+                <div className={styles.cardContent}>
+                  <h2>{title}</h2>
+                  <p>
+                    Another opportunity to serve,
+                    help others, and build friendships
+                    will be added soon.
+                  </p>
                 </div>
               </article>
             ))}
           </div>
         </section>
 
-        <section className={styles.eventsSection}>
-          <div className={homeStyles.sectionHeading}>
-            <h2>Upcoming Events</h2>
-            <p>
-              Discover opportunities to serve
-              your community and meet new friends.
-            </p>
-          </div>
-
-          <div className={styles.eventsPlaceholder}>
-            <span className={styles.calendarIcon} aria-hidden="true">
-              📅
-            </span>
-            <h3>No upcoming events yet</h3>
-            <p>
-              Service events created by community
-              members will appear here.
-            </p>
-          </div>
-        </section>
-
-        <div className={styles.backLink}>
-          <Link href="/activities">
-            ← Back to Explore Activities
-          </Link>
-        </div>
+        <UpcomingEventsBanner
+          description="Discover opportunities to serve your community and meet new friends."
+        />
       </main>
 
       <footer className={homeStyles.footer}>
@@ -149,3 +173,4 @@ export default function ServiceOpportunitiesPage() {
     </div>
   );
 }
+

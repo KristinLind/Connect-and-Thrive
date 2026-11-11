@@ -1,5 +1,8 @@
+import Image from "next/image";
 import Link from "next/link";
+import homeStyles from "../../page.module.css";
 import styles from "./page.module.css";
+import UpcomingEventsBanner from "@/components/UpcomingEventsBanner";
 
 const cookingActivities = [
   {
@@ -60,46 +63,104 @@ const cookingActivities = [
 
 export default function CookingTogether() {
   return (
-    <div className={styles.page}>
-      <main className={styles.main}>
-        <div className={styles.heading}>
-          <span className={styles.eyebrow}>
-            CREATE SOMETHING DELICIOUS
-          </span>
+    <div className={homeStyles.page}>
+      <header className={homeStyles.header}>
+        <Link href="/" className={homeStyles.logo}>
+          Connect <span>&</span> Thrive
+        </Link>
 
-          <h1>Cooking Together</h1>
-
-          <p>
-            Discover new recipes, learn cooking techniques,
-            and build meaningful friendships through
-            delicious experiences in the kitchen.
-          </p>
-
-          <Link href="/activities" className={styles.backLink}>
-            ← Back to all activities
+        <nav
+          className={homeStyles.nav}
+          aria-label="Main navigation"
+        >
+          <Link href="/">Home</Link>
+          <Link href="/activities">
+            Explore Activities
           </Link>
-        </div>
+          <Link href="/#about">About Us</Link>
+          <Link
+            href="/#join"
+            className={homeStyles.navButton}
+          >
+            Join Us
+          </Link>
+        </nav>
+      </header>
 
-        <div className={styles.grid}>
-          {cookingActivities.map((activity) => (
-            <article
-              key={activity.title}
-              className={styles.card}
+      <main className={styles.page}>
+        <section className={styles.titleBanner}>
+          <div className={styles.heading}>
+            <span className={styles.eyebrow}>
+              CREATE SOMETHING DELICIOUS
+            </span>
+
+            <h1>Cooking Together</h1>
+
+            <p>
+              Discover new recipes, learn cooking techniques,
+              and build meaningful friendships through
+              delicious experiences in the kitchen.
+            </p>
+
+            <Link
+              href="/activities"
+              className={styles.backLink}
             >
-              <img
-                src={activity.image}
-                alt={activity.title}
-                className={styles.cardImage}
-              />
+              ← Back to all activities
+            </Link>
+          </div>
+        </section>
 
-              <div className={styles.cardContent}>
-                <h2>{activity.title}</h2>
-                <p>{activity.description}</p>
-              </div>
-            </article>
-          ))}
-        </div>
+        <section className={styles.main}>
+          <div className={styles.sectionHeading}>
+            <h2>Activities to Explore</h2>
+            <p>
+              Learn new recipes, discover cooking techniques,
+              and create delicious memories with friends.
+            </p>
+          </div>
+
+          <div className={styles.grid}>
+            {cookingActivities.map((activity) => (
+              <article
+                key={activity.title}
+                className={styles.card}
+              >
+                <div className={styles.imageWrapper}>
+                  <Image
+                    src={activity.image}
+                    alt={activity.title}
+                    fill
+                    sizes="(max-width: 600px) 100vw, (max-width: 900px) 50vw, 33vw"
+                    className={styles.cardImage}
+                  />
+                </div>
+
+                <div className={styles.cardContent}>
+                  <h2>{activity.title}</h2>
+                  <p>{activity.description}</p>
+                </div>
+              </article>
+            ))}
+          </div>
+        </section>
+
+        <UpcomingEventsBanner
+          description="Discover cooking gatherings, baking activities, and opportunities to share delicious food."
+        />
       </main>
+
+      <footer className={homeStyles.footer}>
+        <h3>Connect & Thrive</h3>
+        <p>
+          Building friendships. Creating connections.
+          Strengthening communities.
+        </p>
+        <p className={homeStyles.copyright}>
+          © 2026 Connect & Thrive. Senior Project.
+        </p>
+      </footer>
     </div>
   );
 }
+

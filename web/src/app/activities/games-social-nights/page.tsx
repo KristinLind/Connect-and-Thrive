@@ -1,13 +1,15 @@
+
 import Image from "next/image";
 import Link from "next/link";
 import homeStyles from "../../page.module.css";
 import styles from "./page.module.css";
+import UpcomingEventsBanner from "@/components/UpcomingEventsBanner";
 
 const games = [
   {
     title: "Board Game Nights",
     description:
-      "Enjoy your favorite board game, enjoy some snacks, and spend an evening laughing and making new friends.",
+      "Enjoy your favorite board games, share some snacks, and spend an evening laughing and making new friends.",
     image: "/images/boardgames.jpg",
   },
   {
@@ -19,7 +21,7 @@ const games = [
   {
     title: "Bonfire & S'mores",
     description:
-      "Gather around the fire for s'mores, good conversations and a relaxing evening with friends.",
+      "Gather around the fire for s'mores, good conversations, and a relaxing evening with friends.",
     image: "/images/bonfire.webp",
   },
   {
@@ -42,6 +44,12 @@ const games = [
   },
 ];
 
+const placeholders = [
+  "More Games Coming Soon",
+  "More Social Activities Coming Soon",
+  "More Friendship Events Coming Soon",
+];
+
 export default function GamesSocialNightsPage() {
   return (
     <div className={homeStyles.page}>
@@ -50,32 +58,52 @@ export default function GamesSocialNightsPage() {
           Connect <span>&</span> Thrive
         </Link>
 
-        <nav className={homeStyles.nav} aria-label="Main navigation">
+        <nav
+          className={homeStyles.nav}
+          aria-label="Main navigation"
+        >
           <Link href="/">Home</Link>
-          <Link href="/activities">Explore Activities</Link>
+          <Link href="/activities">
+            Explore Activities
+          </Link>
           <Link href="/#about">About Us</Link>
-          <Link href="/#join" className={homeStyles.navButton}>
+          <Link
+            href="/#join"
+            className={homeStyles.navButton}
+          >
             Join Us
           </Link>
         </nav>
       </header>
 
-      <main>
-        <section className={styles.intro}>
-          <span className={homeStyles.sectionLabel}>
-            FRIENDSHIP • FUN • CONNECTION
-          </span>
-          <h1>Games & Social Nights</h1>
-          <p>
-            Meet new friends through games, recreation,
-            and fun social gatherings. Whether you enjoy
-            board games, sports, or relaxing evenings with
-            friends, there's something for everyone.
-          </p>
+      <main className={styles.page}>
+        <section className={styles.titleBanner}>
+          <div className={styles.heading}>
+            <span className={styles.eyebrow}>
+              FRIENDSHIP • FUN • CONNECTION
+            </span>
+
+            <h1>Games & Social Nights</h1>
+
+            <p>
+              Meet new friends through games,
+              recreation, and fun social gatherings.
+              Whether you enjoy board games, sports,
+              or relaxing evenings with friends,
+              there&apos;s something for everyone.
+            </p>
+
+            <Link
+              href="/activities"
+              className={styles.backLink}
+            >
+              ← Back to all activities
+            </Link>
+          </div>
         </section>
 
-        <section className={homeStyles.activities}>
-          <div className={homeStyles.sectionHeading}>
+        <section className={styles.main}>
+          <div className={styles.sectionHeading}>
             <h2>Activities to Explore</h2>
             <p>
               Discover fun ways to meet people,
@@ -83,56 +111,54 @@ export default function GamesSocialNightsPage() {
             </p>
           </div>
 
-          <div className={homeStyles.activityGrid}>
+          <div className={styles.grid}>
             {games.map((game) => (
               <article
                 key={game.title}
-                className={homeStyles.activityCard}
+                className={styles.card}
               >
-                <div className={homeStyles.activityImage}>
+                <div className={styles.imageWrapper}>
                   <Image
                     src={game.image}
                     alt={game.title}
                     fill
-                    sizes="(max-width: 700px) 100vw, (max-width: 1000px) 50vw, 33vw"
+                    sizes="(max-width: 600px) 100vw, (max-width: 900px) 50vw, 33vw"
+                    className={styles.cardImage}
                   />
                 </div>
 
-                <div className={homeStyles.activityContent}>
-                  <h3>{game.title}</h3>
+                <div className={styles.cardContent}>
+                  <h2>{game.title}</h2>
                   <p>{game.description}</p>
+                </div>
+              </article>
+            ))}
+
+            {placeholders.map((title) => (
+              <article
+                key={title}
+                className={`${styles.card} ${styles.placeholderCard}`}
+              >
+                <div className={styles.placeholderImage}>
+                  <span aria-hidden="true">+</span>
+                </div>
+
+                <div className={styles.cardContent}>
+                  <h2>{title}</h2>
+                  <p>
+                    Another opportunity to connect,
+                    have fun, and build friendships
+                    will be added soon.
+                  </p>
                 </div>
               </article>
             ))}
           </div>
         </section>
 
-        <section className={styles.eventsSection}>
-          <div className={homeStyles.sectionHeading}>
-            <h2>Upcoming Events</h2>
-            <p>
-              Find opportunities to connect with others
-              through games and social activities.
-            </p>
-          </div>
-
-          <div className={styles.eventsPlaceholder}>
-            <span className={styles.calendarIcon} aria-hidden="true">
-              📅
-            </span>
-            <h3>No upcoming events yet</h3>
-            <p>
-              Events created by community members
-              will appear here.
-            </p>
-          </div>
-        </section>
-
-        <div className={styles.backLink}>
-          <Link href="/activities">
-            ← Back to Explore Activities
-          </Link>
-        </div>
+        <UpcomingEventsBanner
+          description="Discover game nights, social gatherings, and opportunities to make new friends."
+        />
       </main>
 
       <footer className={homeStyles.footer}>
@@ -148,3 +174,4 @@ export default function GamesSocialNightsPage() {
     </div>
   );
 }
+

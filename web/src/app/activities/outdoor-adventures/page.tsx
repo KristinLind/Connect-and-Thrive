@@ -1,5 +1,8 @@
+import Image from "next/image";
 import Link from "next/link";
+import homeStyles from "../../page.module.css";
 import styles from "./page.module.css";
+import UpcomingEventsBanner from "@/components/UpcomingEventsBanner";
 
 const adventures = [
   {
@@ -58,49 +61,105 @@ const adventures = [
   },
 ];
 
-
-
 export default function OutdoorAdventures() {
   return (
-    <div className={styles.page}>
-      <main className={styles.main}>
-        <div className={styles.heading}>
-          <span className={styles.eyebrow}>
-            EXPLORE THE OUTDOORS
-          </span>
+    <div className={homeStyles.page}>
+      <header className={homeStyles.header}>
+        <Link href="/" className={homeStyles.logo}>
+          Connect <span>&</span> Thrive
+        </Link>
 
-          <h1>Outdoor Adventures</h1>
-
-          <p>
-            Discover new places, enjoy exciting experiences,
-            and build lasting friendships along the way.
-          </p>
-
-          <Link href="/activities" className={styles.backLink}>
-            ← Back to all activities
+        <nav
+          className={homeStyles.nav}
+          aria-label="Main navigation"
+        >
+          <Link href="/">Home</Link>
+          <Link href="/activities">
+            Explore Activities
           </Link>
-        </div>
+          <Link href="/#about">About Us</Link>
+          <Link
+            href="/#join"
+            className={homeStyles.navButton}
+          >
+            Join Us
+          </Link>
+        </nav>
+      </header>
 
-        <div className={styles.grid}>
-          {adventures.map((adventure) => (
-            <article
-              key={adventure.title}
-              className={styles.card}
+      <main className={styles.page}>
+        <section className={styles.titleBanner}>
+          <div className={styles.heading}>
+            <span className={styles.eyebrow}>
+              EXPLORE THE OUTDOORS
+            </span>
+
+            <h1>Outdoor Adventures</h1>
+
+            <p>
+              Discover new places, enjoy exciting experiences,
+              and build lasting friendships along the way.
+            </p>
+
+            <Link
+              href="/activities"
+              className={styles.backLink}
             >
-              <img
-                src={adventure.image}
-                alt={adventure.title}
-                className={styles.cardImage}
-              />
+              ← Back to all activities
+            </Link>
+          </div>
+        </section>
 
-              <div className={styles.cardContent}>
-                <h2>{adventure.title}</h2>
-                <p>{adventure.description}</p>
-              </div>
-            </article>
-          ))}
-        </div>
+        <section className={styles.main}>
+          <div className={styles.sectionHeading}>
+            <h2>Activities to Explore</h2>
+            <p>
+              Experience outdoor adventures, discover
+              beautiful places, and create lasting
+              memories with new friends.
+            </p>
+          </div>
+
+          <div className={styles.grid}>
+            {adventures.map((adventure) => (
+              <article
+                key={adventure.title}
+                className={styles.card}
+              >
+                <div className={styles.imageWrapper}>
+                  <Image
+                    src={adventure.image}
+                    alt={adventure.title}
+                    fill
+                    sizes="(max-width: 600px) 100vw, (max-width: 900px) 50vw, 33vw"
+                    className={styles.cardImage}
+                  />
+                </div>
+
+                <div className={styles.cardContent}>
+                  <h2>{adventure.title}</h2>
+                  <p>{adventure.description}</p>
+                </div>
+              </article>
+            ))}
+          </div>
+        </section>
+
+        <UpcomingEventsBanner
+          description="Explore upcoming outdoor adventures and connect with people who love the outdoors."
+        />
       </main>
+
+      <footer className={homeStyles.footer}>
+        <h3>Connect & Thrive</h3>
+        <p>
+          Building friendships. Creating connections.
+          Strengthening communities.
+        </p>
+        <p className={homeStyles.copyright}>
+          © 2026 Connect & Thrive. Senior Project.
+        </p>
+      </footer>
     </div>
   );
 }
