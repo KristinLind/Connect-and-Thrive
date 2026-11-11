@@ -154,29 +154,9 @@ export default function LearningFriendshipPage() {
           </div>
         </section>
 
-        <section
-          className={styles.eventsBanner}
-          aria-label="Upcoming events"
-        >
-          <span
-            className={styles.calendarIcon}
-            aria-hidden="true"
-          >
-            📅
-          </span>
-
-          <div className={styles.eventsText}>
-            <h2>Upcoming Events</h2>
-            <p>
-              Find opportunities to learn new skills,
-              share interests, and build friendships.
-            </p>
-            <p>
-              No upcoming events yet. Learning events
-              created by community members will appear here.
-            </p>
-          </div>
-        </section>
+        <UpcomingEventsBanner
+          description="Find opportunities to learn new skills, share interests, and build friendships."
+        />
       </main>
 
       <footer className={homeStyles.footer}>
@@ -192,3 +172,4 @@ export default function LearningFriendshipPage() {
     </div>
   );
 }
+

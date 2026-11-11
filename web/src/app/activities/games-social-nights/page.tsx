@@ -1,3 +1,4 @@
+
 import Image from "next/image";
 import Link from "next/link";
 import homeStyles from "../../page.module.css";
@@ -96,7 +97,6 @@ export default function GamesSocialNightsPage() {
               href="/activities"
               className={styles.backLink}
             >
-
               ← Back to all activities
             </Link>
           </div>
@@ -105,7 +105,6 @@ export default function GamesSocialNightsPage() {
         <section className={styles.main}>
           <div className={styles.sectionHeading}>
             <h2>Activities to Explore</h2>
-
             <p>
               Discover fun ways to meet people,
               build friendships, and make memories.
@@ -158,7 +157,7 @@ export default function GamesSocialNightsPage() {
         </section>
 
         <UpcomingEventsBanner
-        description="Discover game nights, social gatherings, and opportunities to make new friends."
+          description="Discover game nights, social gatherings, and opportunities to make new friends."
         />
       </main>
 
@@ -175,3 +174,4 @@ export default function GamesSocialNightsPage() {
     </div>
   );
 }
+

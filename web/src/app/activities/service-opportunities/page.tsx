@@ -155,38 +155,9 @@ export default function ServiceOpportunitiesPage() {
           </div>
         </section>
 
-
-        <section
-          className={styles.eventsBanner}
-          aria-label="Upcoming events"
-        >
-          <span
-            className={styles.calendarIcon}
-            aria-hidden="true"
-          >
-            📅
-          </span>
-
-          <div className={styles.eventsText}>
-            <h2>Upcoming Events</h2>
-            <p>
-              Discover opportunities to serve your community
-              and meet new friends.
-            </p>
-            <p>
-              New service events will appear here when
-              community members create them.
-            </p>
-          </div>
-
-          <Link
-            href="/events"
-            className={styles.eventsButton}
-          >
-            View Events →
-          </Link>
-        </section>
-
+        <UpcomingEventsBanner
+          description="Discover opportunities to serve your community and meet new friends."
+        />
       </main>
 
       <footer className={homeStyles.footer}>
@@ -202,3 +173,4 @@ export default function ServiceOpportunitiesPage() {
     </div>
   );
 }
+
