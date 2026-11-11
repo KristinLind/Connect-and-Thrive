@@ -6,16 +6,16 @@ import UpcomingEventsBanner from "@/components/UpcomingEventsBanner";
 
 const activities = [
   {
-    title: "Cooking & Baking Classes",
+    title: "Painting Workshops",
     description:
-      "Learn new recipes, share favorite dishes, and build friendships while cooking and baking together.",
-    image: "/images/cooking-class.webp",
+      "Explore painting techniques, express your creativity, and enjoy making art alongside new friends.",
+    image: "/images/painting-class.webp",
   },
   {
-    title: "Arts & Crafts Nights",
+    title: "Cultural Exploration & Traditions",
     description:
-      "Get creative with painting, crafting, and hands-on projects. All experience levels are welcome!",
-    image: "/images/arts-crafts.webp",
+      "Discover different cultures, share traditions, and build friendships through meaningful conversations and cultural experiences.",
+    image: "/images/cultural-event.webp",
   },
   {
     title: "Book Clubs & Discussions",
@@ -41,12 +41,24 @@ const activities = [
       "Share your talents, enjoy music, and discover new interests in a welcoming environment.",
     image: "/images/music-night.webp",
   },
-];
-
-const placeholders = [
-  "More Learning Activities Coming Soon",
-  "More Creative Activities Coming Soon",
-  "More Friendship Activities Coming Soon",
+  {
+    title: "Pottery Workshops",
+    description:
+      "Explore pottery techniques, create handmade pieces, and enjoy a creative experience with friends.",
+    image: "/images/pottery-class.webp",
+  },
+  {
+    title: "Photography Workshops",
+    description:
+      "Learn photography skills, explore creative ideas, and capture memorable moments together.",
+    image: "/images/photography-workshop.webp",
+  },
+  {
+    title: "Guitar Classes",
+    description:
+      "Learn chords, practice songs, and develop musical skills alongside other aspiring musicians.",
+    image: "/images/guitar-classes.webp",
+  },
 ];
 
 export default function LearningFriendshipPage() {
@@ -131,26 +143,6 @@ export default function LearningFriendshipPage() {
                 </div>
               </article>
             ))}
-
-            {placeholders.map((title) => (
-              <article
-                key={title}
-                className={`${styles.card} ${styles.placeholderCard}`}
-              >
-                <div className={styles.placeholderImage}>
-                  <span aria-hidden="true">+</span>
-                </div>
-
-                <div className={styles.cardContent}>
-                  <h2>{title}</h2>
-                  <p>
-                    Another opportunity to learn,
-                    share interests, and build
-                    friendships will be added soon.
-                  </p>
-                </div>
-              </article>
-            ))}
           </div>
         </section>
 
@@ -172,4 +164,3 @@ export default function LearningFriendshipPage() {
     </div>
   );
 }
-

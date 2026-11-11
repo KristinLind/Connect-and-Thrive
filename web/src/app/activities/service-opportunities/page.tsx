@@ -41,12 +41,24 @@ const services = [
       "Build friendships while planting, gardening, and working together on meaningful outdoor projects.",
     image: "/images/community-garden.webp",
   },
-];
-
-const placeholders = [
-  "More Service Projects Coming Soon",
-  "More Community Activities Coming Soon",
-  "More Ways to Help Coming Soon",
+  {
+    title: "Animal Shelter Volunteering",
+    description:
+      "Help care for shelter animals, support adoption efforts, and make a difference for pets in need.",
+    image: "/images/service-animal-shelter.webp",
+  },
+  {
+    title: "Community Meal Preparation",
+    description:
+      "Work with other volunteers to prepare meals and provide support for individuals and families.",
+    image: "/images/service-meal-prep.webp",
+  },
+  {
+    title: "Senior Center Volunteering",
+    description:
+      "Brighten someone's day through visits, activities, and meaningful conversations with older adults.",
+    image: "/images/service-senior-center.webp",
+  },
 ];
 
 export default function ServiceOpportunitiesPage() {
@@ -132,26 +144,6 @@ export default function ServiceOpportunitiesPage() {
                 </div>
               </article>
             ))}
-
-            {placeholders.map((title) => (
-              <article
-                key={title}
-                className={`${styles.card} ${styles.placeholderCard}`}
-              >
-                <div className={styles.placeholderImage}>
-                  <span aria-hidden="true">+</span>
-                </div>
-
-                <div className={styles.cardContent}>
-                  <h2>{title}</h2>
-                  <p>
-                    Another opportunity to serve,
-                    help others, and build friendships
-                    will be added soon.
-                  </p>
-                </div>
-              </article>
-            ))}
           </div>
         </section>
 
@@ -173,4 +165,3 @@ export default function ServiceOpportunitiesPage() {
     </div>
   );
 }
-
