@@ -1,4 +1,3 @@
-
 import Image from "next/image";
 import Link from "next/link";
 import homeStyles from "../../page.module.css";
@@ -13,9 +12,9 @@ const games = [
     image: "/images/boardgames.jpg",
   },
   {
-    title: "Volleyball & Pickleball Nights",
+    title: "Pickleball Social Nights",
     description:
-      "Enjoy friendly games, meet new people, and have fun together. All skill levels are welcome!",
+      "Enjoy casual pickleball games, meet new people, and have fun together. All skill levels are welcome!",
     image: "/images/pickleball.webp",
   },
   {
@@ -31,10 +30,10 @@ const games = [
     image: "/images/potluck.webp",
   },
   {
-    title: "Outdoor Games & Park Nights",
+    title: "Murder Mystery Nights",
     description:
-      "Get together for spikeball, ultimate frisbee, lawn games, and a fun evening outdoors.",
-    image: "/images/group soccer.webp",
+      "Solve a fictional mystery together, follow clues, and enjoy an interactive evening with friends.",
+    image: "/images/murder-mystery.webp",
   },
   {
     title: "Movie & Popcorn Nights",
@@ -42,12 +41,24 @@ const games = [
       "Grab some popcorn, watch a favorite movie, and enjoy a relaxing night with friends.",
     image: "/images/popcorn.webp",
   },
-];
-
-const placeholders = [
-  "More Games Coming Soon",
-  "More Social Activities Coming Soon",
-  "More Friendship Events Coming Soon",
+  {
+    title: "Karaoke Nights",
+    description:
+      "Sing your favorite songs, cheer on friends, and enjoy a fun evening of music and laughter.",
+    image: "/images/karaoke.webp",
+  },
+  {
+    title: "Escape Room Challenges",
+    description:
+      "Work together to solve puzzles, uncover clues, and complete exciting challenges as a team.",
+    image: "/images/escape-rooms.webp",
+  },
+  {
+    title: "Puzzle Nights",
+    description:
+      "Relax, solve puzzles together, and enjoy friendly conversations while making new friends.",
+    image: "/images/puzzle-night.webp",
+  },
 ];
 
 export default function GamesSocialNightsPage() {
@@ -133,26 +144,6 @@ export default function GamesSocialNightsPage() {
                 </div>
               </article>
             ))}
-
-            {placeholders.map((title) => (
-              <article
-                key={title}
-                className={`${styles.card} ${styles.placeholderCard}`}
-              >
-                <div className={styles.placeholderImage}>
-                  <span aria-hidden="true">+</span>
-                </div>
-
-                <div className={styles.cardContent}>
-                  <h2>{title}</h2>
-                  <p>
-                    Another opportunity to connect,
-                    have fun, and build friendships
-                    will be added soon.
-                  </p>
-                </div>
-              </article>
-            ))}
           </div>
         </section>
 
@@ -174,4 +165,3 @@ export default function GamesSocialNightsPage() {
     </div>
   );
 }
-
