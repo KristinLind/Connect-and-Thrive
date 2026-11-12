@@ -1,5 +1,8 @@
+import Image from "next/image";
 import Link from "next/link";
+import homeStyles from "../../page.module.css";
 import styles from "./page.module.css";
+import UpcomingEventsBanner from "@/components/UpcomingEventsBanner";
 
 const sports = [
   {
@@ -38,7 +41,6 @@ const sports = [
       "Learn new dance moves, enjoy great music, and make lasting friendships through dancing.",
     image: "/images/dancing on beach.webp",
   },
-
   {
     title: "Mountain Climbing",
     description:
@@ -61,42 +63,104 @@ const sports = [
 
 export default function SportsRecreation() {
   return (
-    <div className={styles.page}>
-      <main className={styles.main}>
-        <div className={styles.heading}>
-          <span className={styles.eyebrow}>
-            GET ACTIVE TOGETHER
-          </span>
+    <div className={homeStyles.page}>
+      <header className={homeStyles.header}>
+        <Link href="/" className={homeStyles.logo}>
+          Connect <span>&</span> Thrive
+        </Link>
 
-          <h1>Sports &amp; Recreation</h1>
-
-          <p>
-            Stay active, have fun, and build friendships through
-            sports, teamwork, and shared experiences.
-          </p>
-
-          <Link href="/activities" className={styles.backLink}>
-            ← Back to all activities
+        <nav
+          className={homeStyles.nav}
+          aria-label="Main navigation"
+        >
+          <Link href="/">Home</Link>
+          <Link href="/activities">
+            Explore Activities
           </Link>
-        </div>
+          <Link href="/#about">About Us</Link>
+          <Link
+            href="/#join"
+            className={homeStyles.navButton}
+          >
+            Join Us
+          </Link>
+        </nav>
+      </header>
 
-        <div className={styles.grid}>
-          {sports.map((sport) => (
-            <article key={sport.title} className={styles.card}>
-              <img
-                src={sport.image}
-                alt={sport.title}
-                className={styles.cardImage}
-              />
+      <main className={styles.page}>
+        <section className={styles.titleBanner}>
+          <div className={styles.heading}>
+            <span className={styles.eyebrow}>
+              GET ACTIVE TOGETHER
+            </span>
 
-              <div className={styles.cardContent}>
-                <h2>{sport.title}</h2>
-                <p>{sport.description}</p>
-              </div>
-            </article>
-          ))}
-        </div>
+            <h1>Sports &amp; Recreation</h1>
+
+            <p>
+              Stay active, have fun, and build friendships
+              through sports, teamwork, and shared experiences.
+            </p>
+
+            <Link
+              href="/activities"
+              className={styles.backLink}
+            >
+              ← Back to all activities
+            </Link>
+          </div>
+        </section>
+
+        <section className={styles.main}>
+          <div className={styles.sectionHeading}>
+            <h2>Activities to Explore</h2>
+            <p>
+              Discover exciting ways to stay active,
+              enjoy friendly competition, and build
+              lasting friendships.
+            </p>
+          </div>
+
+          <div className={styles.grid}>
+            {sports.map((sport) => (
+              <article
+                key={sport.title}
+                className={styles.card}
+              >
+                <div className={styles.imageWrapper}>
+                  <Image
+                    src={sport.image}
+                    alt={sport.title}
+                    fill
+                    sizes="(max-width: 600px) 100vw, (max-width: 900px) 50vw, 33vw"
+                    className={styles.cardImage}
+                  />
+                </div>
+
+                <div className={styles.cardContent}>
+                  <h2>{sport.title}</h2>
+                  <p>{sport.description}</p>
+                </div>
+              </article>
+            ))}
+          </div>
+        </section>
+
+        <UpcomingEventsBanner
+          description="Find upcoming sports, recreation, and group activities for all skill levels."
+        />
       </main>
+
+      <footer className={homeStyles.footer}>
+        <h3>Connect & Thrive</h3>
+        <p>
+          Building friendships. Creating connections.
+          Strengthening communities.
+        </p>
+        <p className={homeStyles.copyright}>
+          © 2026 Connect & Thrive. Senior Project.
+        </p>
+      </footer>
     </div>
   );
 }
+
