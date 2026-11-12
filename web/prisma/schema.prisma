@@ -8,17 +8,6 @@ datasource db {
   provider = "postgresql"
 }
 
-model User {
-  id        String     @id @default(cuid())
-  name      String
-  email     String     @unique
-  password  String
-  createdAt DateTime   @default(now())
-  updatedAt DateTime   @updatedAt
-  rsvps     RSVP[]
-  favorites Favorite[]
-}
-
 model Activity {
   id          String     @id @default(cuid())
   title       String
@@ -28,6 +17,8 @@ model Activity {
   image       String?
   createdAt   DateTime   @default(now())
   updatedAt   DateTime   @updatedAt
+  createdById String
+
   rsvps       RSVP[]
   favorites   Favorite[]
 }
@@ -37,7 +28,7 @@ model RSVP {
   userId     String
   activityId String
   createdAt  DateTime @default(now())
-  user       User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
   activity   Activity @relation(fields: [activityId], references: [id], onDelete: Cascade)
 
   @@unique([userId, activityId])
@@ -48,7 +39,7 @@ model Favorite {
   userId     String
   activityId String
   createdAt  DateTime @default(now())
-  user       User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
   activity   Activity @relation(fields: [activityId], references: [id], onDelete: Cascade)
 
   @@unique([userId, activityId])
