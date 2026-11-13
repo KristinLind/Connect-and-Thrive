@@ -1,0 +1,46 @@
+
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model Activity {
+  id          String     @id @default(cuid())
+  title       String
+  description String
+  location    String
+  date        DateTime
+  image       String?
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime   @updatedAt
+  createdById String
+
+  rsvps       RSVP[]
+  favorites   Favorite[]
+}
+
+model RSVP {
+  id         String   @id @default(cuid())
+  userId     String
+  activityId String
+  createdAt  DateTime @default(now())
+
+  activity   Activity @relation(fields: [activityId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, activityId])
+}
+
+model Favorite {
+  id         String   @id @default(cuid())
+  userId     String
+  activityId String
+  createdAt  DateTime @default(now())
+
+  activity   Activity @relation(fields: [activityId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, activityId])
+}
