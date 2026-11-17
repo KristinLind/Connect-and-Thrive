@@ -1,7 +1,8 @@
 import Image from "next/image";
 import Link from "next/link";
 import styles from "./page.module.css";
-
+import { AuthNavigation } from "@/components/auth/auth-navigation";
+import { Suspense } from "react";
 
 const activities = [
   {
@@ -58,6 +59,9 @@ export default function Home() {
           <a href="#join" className={styles.navButton}>
             Join Us
           </a>
+          <Suspense fallback={null}>
+            <AuthNavigation />
+          </Suspense>
         </nav>
       </header>
 
