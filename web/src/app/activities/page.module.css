@@ -162,3 +162,40 @@
     padding: 50px 5% 70px;
   }
 }
+
+.localEvents {
+  margin-top: 80px;
+}
+
+.localEvents h2 {
+  font-size: clamp(1.8rem, 3.5vw, 2.6rem);
+  color: var(--navy);
+  margin-bottom: 12px;
+}
+
+.footer {
+  background: var(--navy);
+  color: white;
+  text-align: center;
+  padding: 28px 20px 18px;
+  border-top: 10px solid var(--coral);
+  margin-top: 60px;
+}
+
+.footer h3 {
+  font-size: 1.45rem;
+  margin-bottom: 6px;
+  color: white;
+  font-family: var(--font-heading);
+}
+
+.footer p {
+  color: #d9e0e7;
+  font-size: 0.9rem;
+  margin: 6px 0;
+}
+
+.copyright {
+  font-size: 0.8rem;
+  opacity: 0.8;
+}
