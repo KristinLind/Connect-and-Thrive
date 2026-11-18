@@ -1,0 +1,123 @@
+.header {
+    width: 100%;
+    min-height: 84px;
+    padding: 18px 6%;
+    background: var(--white);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+    box-shadow: 0 3px 15px rgba(32, 52, 74, 0.08);
+    border-bottom: 10px solid var(--coral);
+}
+
+.logo {
+    font-family: var(--font-heading);
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: var(--teal);
+    white-space: nowrap;
+}
+
+.logo span {
+    color: var(--coral);
+}
+
+.nav {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+    flex-wrap: wrap;
+}
+
+.nav a {
+    color: var(--navy);
+    font-size: 0.95rem;
+    font-weight: 600;
+}
+
+.nav a:hover {
+    color: var(--teal);
+}
+
+.navButton {
+    background: var(--coral);
+    color: var(--navy);
+    padding: 11px 23px;
+    border-radius: 30px;
+}
+
+.navButton:hover {
+    background: var(--gold);
+}
+
+.footer {
+    background: var(--navy);
+    color: white;
+    text-align: center;
+    padding: 28px 20px 18px;
+    border-top: 10px solid var(--coral);
+}
+
+.footer h3 {
+    font-size: 1.45rem;
+    margin-bottom: 6px;
+    color: white;
+    font-family: var(--font-heading);
+}
+
+.footer p {
+    color: #d9e0e7;
+    font-size: 0.9rem;
+    margin: 6px 0;
+}
+
+.copyright {
+    font-size: 0.8rem;
+    opacity: 0.8;
+}
+
+@media (max-width: 760px) {
+    .header {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .nav {
+        justify-content: center;
+        gap: 16px;
+    }
+}
+
+/* Members page background */
+.membersPage {
+    background-color: #fff1ed;
+    min-height: 100vh;
+}
+
+/* Double-bordered introduction banner */
+.membersBanner {
+    max-width: 1200px;
+    margin: 10px auto 20px;
+    padding: 5px;
+    background-color: #ffffff;
+    border: 3px solid var(--teal);
+    border-radius: 18px;
+}
+
+.membersBannerInner {
+    border: 2px solid var(--coral);
+    border-radius: 12px;
+    padding: 14px 24px;
+    text-align: center;
+}
+
+@media (max-width: 760px) {
+    .membersBanner {
+        margin: 30px 16px 45px;
+    }
+
+    .membersBannerInner {
+        padding: 28px 18px;
+    }
+}

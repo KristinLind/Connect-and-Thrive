@@ -54,6 +54,7 @@ export default function Home() {
         <nav className={styles.nav} aria-label="Main navigation">
           <Link href="/">Home</Link>
           <Link href="/activities">Explore Activities</Link>
+          <Link href="/members">Meet Our Members</Link>
           <a href="#about">About Us</a>
           <a href="#join" className={styles.navButton}>
             Join Us
