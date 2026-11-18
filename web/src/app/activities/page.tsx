@@ -92,7 +92,75 @@ export default function ExploreActivities() {
             </Link>
           ))}
         </div>
+
+        <section className={styles.localEvents}>
+          <div className={styles.heading}>
+            <span className={styles.sectionLabel}>NEAR YOU</span>
+            <h2>Local Events in South Jordan</h2>
+            <p>
+              Discover upcoming activities and gatherings happening in the South Jordan area.
+            </p>
+          </div>
+
+          <div className={styles.grid}>
+            <article className={styles.card}>
+              <div className={styles.imageWrapper}>
+                <Image
+                  src="/images/community-cleanup.webp"
+                  alt="Community cleanup"
+                  fill
+                  sizes="(max-width: 700px) 100vw, 33vw"
+                />
+              </div>
+              <div className={styles.content}>
+                <h2>South Jordan Community Cleanup</h2>
+                <p>Join neighbors for a morning of service and connection.</p>
+              </div>
+            </article>
+
+            <article className={styles.card}>
+              <div className={styles.imageWrapper}>
+                <Image
+                  src="/images/pickleball.webp"
+                  alt="Pickleball"
+                  fill
+                  sizes="(max-width: 700px) 100vw, 33vw"
+                />
+              </div>
+              <div className={styles.content}>
+                <h2>Pickleball at Oquirrh Lake</h2>
+                <p>Casual games and new friends every weekend.</p>
+              </div>
+            </article>
+
+            <article className={styles.card}>
+              <div className={styles.imageWrapper}>
+                <Image
+                  src="/images/bonfire.webp"
+                  alt="Bonfire"
+                  fill
+                  sizes="(max-width: 700px) 100vw, 33vw"
+                />
+              </div>
+              <div className={styles.content}>
+                <h2>Evening Bonfire & S’mores</h2>
+                <p>Relax, share stories, and meet people in the area.</p>
+              </div>
+            </article>
+          </div>
+        </section>
       </main>
+
+      <footer className={styles.footer}>
+        <h3>Connect & Thrive</h3>
+        <p>
+          Building friendships. Creating connections. Strengthening
+          communities.
+        </p>
+        <p className={styles.copyright}>
+          © 2026 Connect & Thrive. Senior Project.
+        </p>
+      </footer>
     </div>
   );
 }
