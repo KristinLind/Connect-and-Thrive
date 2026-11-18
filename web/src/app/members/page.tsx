@@ -1,5 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
+import homeStyles from "../page.module.css";
 import styles from "./page.module.css";
 
 
@@ -258,6 +259,18 @@ export default function MembersPage() {
             </p>
 
             </main>
-            </div>
-    );
+
+            <footer className={homeStyles.footer}>
+                <h3>Connect & Thrive</h3>
+                <p>
+                Building friendships. Creating connections.
+                Strengthening communities.
+                </p>
+                <p className={homeStyles.copyright}>
+                © 2026 Connect & Thrive. Senior Project.
+                </p>
+            </footer>
+            </div >
+  );
 }
+    
