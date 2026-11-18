@@ -52,8 +52,8 @@ export default function ExploreActivities() {
 
         <nav className={styles.nav}>
           <Link href="/">Home</Link>
-          <Link href="/activities">Explore Activities</Link>
-          <Link href="/#about">About Us</Link>
+          <Link href="/activities" aria-current>Explore Activities</Link>
+          <Link href="/about">About Us</Link>
           <Link href="/#join" className={styles.navButton}>
             Join Us
           </Link>

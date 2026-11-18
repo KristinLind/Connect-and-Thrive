@@ -64,8 +64,8 @@ export default function MembersPage() {
                 <nav className={styles.nav} aria-label="Main navigation">
                     <Link href="/">Home</Link>
                     <Link href="/activities">Explore Activities</Link>
-                    <Link href="/members">Meet Our Members</Link>
-                    <Link href="/#about">About Us</Link>
+                    <Link href="/members" aria-current="page">Meet Our Members</Link>
+                    <Link href="/about">About Us</Link>
                     <Link href="/#join" className={styles.navButton}>
                         Join Us
                     </Link>

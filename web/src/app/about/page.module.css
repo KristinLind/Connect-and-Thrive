@@ -1,0 +1,181 @@
+/* About Us Hero Section */
+
+.hero {
+    background: #fff1ed;
+    padding: 55px 6%;
+}
+
+.heroInner {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+    gap: 50px;
+    max-width: 1150px;
+    margin: 0 auto;
+}
+
+.sectionLabel {
+    display: block;
+    color: var(--teal);
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 16px;
+}
+
+.heroText h1 {
+    color: var(--navy);
+    font-size: clamp(2.1rem, 3.2vw, 3rem);
+    line-height: 1.2;
+    margin: 0 0 18px;
+}
+
+.tagline {
+    color: var(--teal);
+    font-size: 1.3rem;
+    font-weight: 600;
+    line-height: 1.5;
+    margin-bottom: 16px;
+}
+
+.introDescription {
+    color: #526171;
+    font-size: 1.05rem;
+    line-height: 1.75;
+    max-width: 480px;
+}
+
+/* Introduction Photograph */
+
+.heroImage {
+    position: relative;
+    width: 100%;
+    height: 315px;
+    border-radius: 18px;
+    overflow: hidden;
+    box-shadow: 0 8px 25px rgba(32, 52, 74, 0.12);
+}
+
+.image {
+    object-fit: cover;
+}
+
+/* Our Mission Section */
+
+.aboutSection {
+    background: #ffffff;
+    padding: 55px 6% 50px;
+}
+
+.content {
+    max-width: 850px;
+    margin: 0 auto;
+}
+
+.content h2 {
+    color: var(--navy);
+    font-size: clamp(1.9rem, 3vw, 2.5rem);
+    line-height: 1.2;
+    margin: 0 0 22px;
+}
+
+.content p {
+    color: #526171;
+    font-size: 1.05rem;
+    line-height: 1.8;
+    margin: 0 0 20px;
+}
+
+/* Friendship First Highlight */
+
+.friendshipNote {
+    background: #fff1ed;
+    border-left: 5px solid var(--teal);
+    border-radius: 0 14px 14px 0;
+    padding: 25px 30px;
+    margin-top: 30px;
+}
+
+.friendshipNote h3 {
+    color: var(--navy);
+    font-size: 1.4rem;
+    line-height: 1.3;
+    margin: 0 0 12px;
+}
+
+.friendshipNote p {
+    margin: 0;
+}
+
+/* Tablet and Mobile */
+
+@media (max-width: 768px) {
+    .hero {
+        padding: 35px 6%;
+    }
+
+    .heroInner {
+        grid-template-columns: 1fr;
+        gap: 28px;
+    }
+
+    .heroText h1 {
+        font-size: 2.1rem;
+        line-height: 1.15;
+        margin-bottom: 14px;
+    }
+
+    .tagline {
+        font-size: 1.15rem;
+        margin-bottom: 14px;
+    }
+
+    .introDescription {
+        font-size: 1rem;
+        line-height: 1.7;
+    }
+
+    .heroImage {
+        height: 260px;
+        border-radius: 16px;
+    }
+
+    .aboutSection {
+        padding: 45px 6% 40px;
+    }
+
+    .content h2 {
+        font-size: 1.9rem;
+    }
+
+    .friendshipNote {
+        padding: 22px;
+        margin-top: 25px;
+    }
+}
+
+/* Smaller Phones */
+
+@media (max-width: 480px) {
+    .heroText h1 {
+        font-size: 2rem;
+    }
+
+    .heroImage {
+        height: 220px;
+    }
+
+    .sectionLabel {
+        font-size: 0.75rem;
+        letter-spacing: 1.5px;
+    }
+
+    .aboutSection {
+        padding: 40px 6% 35px;
+    }
+
+    .friendshipNote {
+        padding: 20px;
+    }
+}
