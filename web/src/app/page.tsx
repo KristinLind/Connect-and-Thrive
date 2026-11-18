@@ -55,7 +55,7 @@ export default function Home() {
           <Link href="/">Home</Link>
           <Link href="/activities">Explore Activities</Link>
           <Link href="/members">Meet Our Members</Link>
-          <a href="#about">About Us</a>
+          <Link href="/about">About Us</Link>
           <a href="#join" className={styles.navButton}>
             Join Us
           </a>
