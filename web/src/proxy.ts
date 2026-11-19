@@ -1,9 +1,13 @@
+
 import { auth } from "@/lib/auth/server";
 
 export default auth.middleware({
     loginUrl: "/sign-in",
     publicRoutes: [
         "/",
+        "/about",
+        "/activities",
+        "/activities/*",
         "/register",
         "/sign-in",
         "/pending-approval",
