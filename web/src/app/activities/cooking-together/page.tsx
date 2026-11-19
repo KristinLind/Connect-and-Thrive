@@ -64,29 +64,6 @@ const cookingActivities = [
 export default function CookingTogether() {
   return (
     <div className={homeStyles.page}>
-      <header className={homeStyles.header}>
-        <Link href="/" className={homeStyles.logo}>
-          Connect <span>&</span> Thrive
-        </Link>
-
-        <nav
-          className={homeStyles.nav}
-          aria-label="Main navigation"
-        >
-          <Link href="/">Home</Link>
-          <Link href="/activities">
-            Explore Activities
-          </Link>
-          <Link href="/#about">About Us</Link>
-          <Link
-            href="/#join"
-            className={homeStyles.navButton}
-          >
-            Join Us
-          </Link>
-        </nav>
-      </header>
-
       <main className={styles.page}>
         <section className={styles.titleBanner}>
           <div className={styles.heading}>

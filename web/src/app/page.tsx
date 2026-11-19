@@ -1,8 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
 import styles from "./page.module.css";
-import { AuthNavigation } from "@/components/auth/auth-navigation";
-import { Suspense } from "react";
 
 const activities = [
   {
@@ -46,26 +44,7 @@ const activities = [
 export default function Home() {
   return (
     <div className={styles.page}>
-      {/* Navigation */}
-      <header className={styles.header}>
-        <Link href="/" className={styles.logo}>
-          Connect <span>&</span> Thrive
-        </Link>
-
-        <nav className={styles.nav} aria-label="Main navigation">
-          <Link href="/">Home</Link>
-          <Link href="/activities">Explore Activities</Link>
-          <Link href="/members">Meet Our Members</Link>
-          <Link href="/about">About Us</Link>
-          <a href="#join" className={styles.navButton}>
-            Join Us
-          </a>
-          <Suspense fallback={null}>
-            <AuthNavigation />
-          </Suspense>
-        </nav>
-      </header>
-
+      
       <main>
         {/* Hero section */}
         <section className={styles.hero}>
