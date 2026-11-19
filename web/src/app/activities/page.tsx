@@ -45,21 +45,6 @@ const categories = [
 export default function ExploreActivities() {
   return (
     <div className={styles.page}>
-      <header className={styles.header}>
-        <Link href="/" className={styles.logo}>
-          Connect <span>&</span> Thrive
-        </Link>
-
-        <nav className={styles.nav}>
-          <Link href="/">Home</Link>
-          <Link href="/activities" aria-current>Explore Activities</Link>
-          <Link href="/about">About Us</Link>
-          <Link href="/#join" className={styles.navButton}>
-            Join Us
-          </Link>
-        </nav>
-      </header>
-
       <main className={styles.main}>
         <div className={styles.heading}>
           <span className={styles.sectionLabel}>DISCOVER SOMETHING NEW</span>

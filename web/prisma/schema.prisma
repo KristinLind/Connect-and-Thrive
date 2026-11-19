@@ -44,3 +44,21 @@ model Favorite {
 
   @@unique([userId, activityId])
 }
+
+enum AccountStatus {
+  PENDING
+  APPROVED
+  BLOCKED
+}
+
+model UserAccess {
+  authUserId String        @id
+  email      String        @unique
+  name       String
+  status     AccountStatus @default(PENDING)
+  isAdmin    Boolean       @default(false)
+  createdAt  DateTime      @default(now())
+  updatedAt  DateTime      @updatedAt
+
+  @@index([status, createdAt])
+}

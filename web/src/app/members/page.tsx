@@ -55,23 +55,6 @@ const members = [
 export default function MembersPage() {
     return (
         <div className={styles.membersPage}>
-            {/* Navigation header */}
-            <header className={styles.header}>
-                <Link href="/" className={styles.logo}>
-                    Connect <span>&</span> Thrive
-                </Link>
-
-                <nav className={styles.nav} aria-label="Main navigation">
-                    <Link href="/">Home</Link>
-                    <Link href="/activities">Explore Activities</Link>
-                    <Link href="/members" aria-current="page">Meet Our Members</Link>
-                    <Link href="/about">About Us</Link>
-                    <Link href="/#join" className={styles.navButton}>
-                        Join Us
-                    </Link>
-                </nav>
-            </header>
-
             <main
                 style={{
                     padding: "20px 6% 50px",

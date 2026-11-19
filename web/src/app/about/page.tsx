@@ -1,28 +1,10 @@
 import Image from "next/image";
-import Link from "next/link";
 import homeStyles from "../page.module.css";
 import styles from "./page.module.css";
 
 export default function AboutPage() {
   return (
     <div className={homeStyles.page}>
-      <header className={homeStyles.header}>
-        <Link href="/" className={homeStyles.logo}>
-          Connect <span>&amp;</span> Thrive
-        </Link>
-
-        <nav className={homeStyles.nav} aria-label="Main navigation">
-          <Link href="/">Home</Link>
-          <Link href="/activities">Explore Activities</Link>
-          <Link href="/about" aria-current="page">
-            About Us
-          </Link>
-          <Link href="/#join" className={homeStyles.navButton}>
-            Join Us
-          </Link>
-        </nav>
-      </header>
-
       <main>
         <section className={styles.hero}>
           <div className={styles.heroInner}>
