@@ -10,7 +10,7 @@ const allowedInterests = [
     "Learning & Friendship",
 ];
 
-async function getApprovedUser() {
+async function getProfileUser() {
     const { data: session } = await auth.getSession();
 
     if (!session?.user) {
@@ -21,9 +21,13 @@ async function getApprovedUser() {
         where: { authUserId: session.user.id },
     });
 
-    if (!access || access.status !== "APPROVED") {
+    if (
+        !access ||
+        (access.status !== "PENDING" &&
+            access.status !== "APPROVED")
+    ) {
         return {
-            error: "Your account must be approved first.",
+            error: "Profile access is not available for this account.",
             status: 403,
         };
     }
@@ -34,7 +38,7 @@ async function getApprovedUser() {
 // Retrieve the signed-in member's profile
 export async function GET() {
     try {
-        const result = await getApprovedUser();
+        const result = await getProfileUser();
 
         if (!result.userId) {
             return Response.json(
@@ -61,7 +65,7 @@ export async function GET() {
 // Create or update the signed-in member's profile
 export async function POST(request: Request) {
     try {
-        const result = await getApprovedUser();
+        const result = await getProfileUser();
 
         if (!result.userId) {
             return Response.json(

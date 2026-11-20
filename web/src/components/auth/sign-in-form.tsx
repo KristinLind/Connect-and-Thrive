@@ -75,14 +75,30 @@ export function SignInForm() {
                 isAdmin: boolean;
             };
 
-            const destination =
-                access.status === "PENDING"
+            let destination: string;
+
+            if (access.status === "BLOCKED") {
+                destination = "/blocked";
+            } else if (access.status === "PENDING") {
+                const profileResponse = await fetch("/api/profile", {
+                    cache: "no-store",
+                });
+
+                if (!profileResponse.ok) {
+                    setError("Unable to check your application. Please try again.");
+                    return;
+                }
+
+                const data = await profileResponse.json();
+
+                destination = data.profile
                     ? "/pending-approval"
-                    : access.status === "BLOCKED"
-                        ? "/blocked"
-                        : access.isAdmin
-                            ? "/admin/review"
-                            : "/";
+                    : "/register";
+            } else if (access.isAdmin) {
+                destination = "/admin/review";
+            } else {
+                destination = "/";
+            }
 
             router.replace(destination);
             router.refresh();
