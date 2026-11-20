@@ -47,6 +47,11 @@ export default function CreateProfilePage() {
     const [message, setMessage] = useState("");
     const [error, setError] = useState("");
     const [accessDenied, setAccessDenied] = useState(false);
+    const [selectedPhoto, setSelectedPhoto] = useState<File | null>(null);
+    const [photoPreview, setPhotoPreview] = useState<string | null>(null);
+    const [uploadingPhoto, setUploadingPhoto] = useState(false);
+    const [photoMessage, setPhotoMessage] = useState("");
+    const [profileExists, setProfileExists] = useState(false);
 
     useEffect(() => {
         async function loadProfile() {
@@ -68,6 +73,7 @@ export default function CreateProfilePage() {
 
                 if (data.profile) {
                     const profile = data.profile;
+                    setProfileExists(true);
 
                     setForm({
                         displayName: profile.displayName ?? "",
@@ -132,6 +138,7 @@ export default function CreateProfilePage() {
             }
 
             setMessage("Your profile has been saved successfully!");
+            setProfileExists(true);
         } catch (err) {
             setError(
                 err instanceof Error ? err.message : "Something went wrong."
@@ -140,6 +147,50 @@ export default function CreateProfilePage() {
             setSaving(false);
         }
     }
+
+
+    async function uploadPhoto() {
+        if (!selectedPhoto) {
+            setError("Please choose a photograph first.");
+            return;
+        }
+
+        setUploadingPhoto(true);
+        setError("");
+        setPhotoMessage("");
+
+        try {
+            const photoData = new FormData();
+            photoData.append("photo", selectedPhoto);
+
+            const response = await fetch("/api/profile/photo", {
+                method: "POST",
+                body: photoData,
+            });
+
+            const data = await response.json();
+
+            if (!response.ok) {
+                throw new Error(
+                    data.error ?? "Unable to upload photograph."
+                );
+            }
+
+            setPhotoMessage(
+                "Your profile photograph was saved successfully!"
+            );
+            setSelectedPhoto(null);
+        } catch (err) {
+            setError(
+                err instanceof Error
+                    ? err.message
+                    : "Unable to upload photograph."
+            );
+        } finally {
+            setUploadingPhoto(false);
+        }
+    }
+
 
     const inputStyle: React.CSSProperties = {
         width: "100%",
@@ -211,6 +262,89 @@ export default function CreateProfilePage() {
                 </p>
 
                 <form onSubmit={saveProfile}>
+
+<div
+    style={{
+                            padding: 22,
+                            marginBottom: 28,
+                            background: "#f0f9f9",
+                            border: "1px solid #cce7e8",
+                            borderRadius: 12,
+                        }}
+                    >
+                        <h2 style={{ color: "#20364d", marginTop: 0 }}>
+                            Profile Photo
+                        </h2>
+
+                        <p style={{ color: "#64748b" }}>
+                            Add a photograph to help other approved members
+                            recognize you. JPG, PNG, or WebP, up to 5 MB.
+                        </p>
+
+                        {photoPreview && (
+                            <img
+                                src={photoPreview}
+                                alt="Selected profile photograph preview"
+                                style={{
+                                    width: 140,
+                                    height: 140,
+                                    objectFit: "cover",
+                                    borderRadius: "50%",
+                                    border: "4px solid #087b83",
+                                    display: "block",
+                                    marginBottom: 18,
+                                }}
+                            />
+                        )}
+
+                        <input
+                            type="file"
+                            accept="image/jpeg,image/png,image/webp"
+                            onChange={(event) => {
+                                const file = event.target.files?.[0] ?? null;
+                                setSelectedPhoto(file);
+                                setPhotoMessage("");
+
+                                if (file) {
+                                    setPhotoPreview(URL.createObjectURL(file));
+                                } else {
+                                    setPhotoPreview(null);
+                                }
+                            }}
+                            style={{ marginBottom: 16, display: "block" }}
+                        />
+
+                        <button
+                            type="button"
+                            disabled={!selectedPhoto || uploadingPhoto || !profileExists}
+                            onClick={uploadPhoto}
+                            style={{
+                                background: "#087b83",
+                                color: "white",
+                                border: "none",
+                                borderRadius: 9,
+                                padding: "12px 22px",
+                                fontWeight: 700,
+                                cursor: uploadingPhoto ? "wait" : "pointer",
+                                opacity: !selectedPhoto || !profileExists ? 0.5 : 1,
+                            }}
+                        >
+                            {uploadingPhoto ? "Uploading..." : "Upload Photo"}
+                        </button>
+
+                        {!profileExists && (
+                            <p style={{ color: "#64748b", fontSize: 14 }}>
+                                Please save your basic profile before uploading a photo.
+                            </p>
+                        )}
+
+                        {photoMessage && (
+                            <p role="status" style={{ color: "#087b83" }}>
+                                {photoMessage}
+                            </p>
+                        )}
+                    </div>
+
                     <div style={{ marginBottom: 20 }}>
                         <label htmlFor="displayName" style={labelStyle}>
                             Display Name *
