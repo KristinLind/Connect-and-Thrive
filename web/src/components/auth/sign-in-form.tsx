@@ -11,20 +11,22 @@ export function SignInForm() {
     const [pending, setPending] = useState(false);
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const [showPassword, setShowPassword] = useState(false);
 
-    // Fill in the dedicated demo account credentials.
+    // Fill in the demo email address.
+    // Never expose a demo password through NEXT_PUBLIC_ variables.
     function useDemoAccount() {
         const demoEmail = process.env.NEXT_PUBLIC_DEMO_EMAIL ?? "";
-        const demoPassword = process.env.NEXT_PUBLIC_DEMO_PASSWORD ?? "";
 
-        if (!demoEmail || !demoPassword) {
+        if (!demoEmail) {
             setError("Demo account is not configured yet.");
             return;
         }
 
         setError("");
         setEmail(demoEmail);
-        setPassword(demoPassword);
+        setPassword("");
+        setShowPassword(false);
     }
 
     async function handleSubmit(event: SubmitEvent<HTMLFormElement>) {
@@ -136,23 +138,106 @@ export function SignInForm() {
                 />
             </div>
 
-            {/* Password */}
+            {/* Password with Show/Hide Eye */}
             <div className="auth-form-field">
                 <label htmlFor="signin-password">
                     Password
                 </label>
 
-                <input
-                    id="signin-password"
-                    name="password"
-                    type="password"
-                    placeholder="Enter your password"
-                    autoComplete="current-password"
-                    value={password}
-                    onChange={(event) => setPassword(event.target.value)}
-                    disabled={pending}
-                    required
-                />
+                <div
+                    style={{
+                        position: "relative",
+                        width: "100%",
+                    }}
+                >
+                    <input
+                        id="signin-password"
+                        name="password"
+                        type={showPassword ? "text" : "password"}
+                        placeholder="Enter your password"
+                        autoComplete="current-password"
+                        value={password}
+                        onChange={(event) =>
+                            setPassword(event.target.value)
+                        }
+                        disabled={pending}
+                        required
+                        style={{
+                            width: "100%",
+                            paddingRight: "3.5rem",
+                            boxSizing: "border-box",
+                        }}
+                    />
+
+                    <button
+                        type="button"
+                        onClick={() =>
+                            setShowPassword((previous) => !previous)
+                        }
+                        disabled={pending}
+                        aria-label={
+                            showPassword
+                                ? "Hide password"
+                                : "Show password"
+                        }
+                        aria-pressed={showPassword}
+                        title={
+                            showPassword
+                                ? "Hide password"
+                                : "Show password"
+                        }
+                        style={{
+                            position: "absolute",
+                            right: "1rem",
+                            top: "50%",
+                            transform: "translateY(-50%)",
+                            border: "none",
+                            background: "transparent",
+                            color: "#24564f",
+                            cursor: pending ? "not-allowed" : "pointer",
+                            display: "flex",
+                            alignItems: "center",
+                            justifyContent: "center",
+                            padding: "0.35rem",
+                        }}
+                    >
+                        {showPassword ? (
+                            // Eye with a slash: hide password
+                            <svg
+                                width="22"
+                                height="22"
+                                viewBox="0 0 24 24"
+                                fill="none"
+                                stroke="currentColor"
+                                strokeWidth="2"
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                                aria-hidden="true"
+                            >
+                                <path d="M3 3l18 18" />
+                                <path d="M10.6 5.1A11 11 0 0 1 12 5c5 0 9.3 3.1 11 7a12.5 12.5 0 0 1-4.1 5.2" />
+                                <path d="M6.2 6.2A12.4 12.4 0 0 0 1 12c1.7 3.9 6 7 11 7a11 11 0 0 0 5.8-1.6" />
+                                <path d="M10 10a3 3 0 0 0 4 4" />
+                            </svg>
+                        ) : (
+                            // Open eye: show password
+                            <svg
+                                width="22"
+                                height="22"
+                                viewBox="0 0 24 24"
+                                fill="none"
+                                stroke="currentColor"
+                                strokeWidth="2"
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                                aria-hidden="true"
+                            >
+                                <path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12Z" />
+                                <circle cx="12" cy="12" r="3" />
+                            </svg>
+                        )}
+                    </button>
+                </div>
             </div>
 
             {/* Error Message */}
