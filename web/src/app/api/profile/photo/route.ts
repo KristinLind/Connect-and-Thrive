@@ -23,9 +23,13 @@ export async function POST(request: NextRequest) {
             where: { authUserId },
         });
 
-        if (access?.status !== "APPROVED") {
+        if (
+            !access ||
+            (access.status !== "PENDING" &&
+                access.status !== "APPROVED")
+        ) {
             return NextResponse.json(
-                { error: "Your membership must be approved." },
+                { error: "Your account cannot upload a photograph." },
                 { status: 403 }
             );
         }
