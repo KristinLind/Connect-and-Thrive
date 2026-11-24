@@ -6,7 +6,6 @@ import styles from "./page.module.css";
 import { auth } from "@/lib/auth/server";
 import { prisma } from "@/lib/prisma";
 import { redirect } from "next/navigation";
-import { members } from "@/lib/sample-members";
 
 export default function MembersPage() {
     return (
@@ -132,120 +131,6 @@ async function MembersContent() {
                     aria-label="Member stories"
                     className={styles.membersGrid}
                 >
-                    {members.map((member) => (
-                        <Link
-                            key={member.name}
-                            href={`/members/${member.name.toLowerCase()}`}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            style={{
-                                display: "block",
-                                textDecoration: "none",
-                                color: "inherit",
-                            }}
-                        >
-                            <article
-                                style={{
-                                backgroundColor: "#ffffff",
-                                borderRadius: "18px",
-                                padding: "28px",
-                                boxShadow: "0 12px 30px rgba(32, 54, 77, 0.18)",
-                                borderTop: "6px solid #087b83",
-                            }}
-                        >
-
-                            {/* Member portrait */}
-                            <div
-                                style={{
-                                    display: "flex",
-                                    justifyContent: "center",
-                                    marginBottom: "24px",
-                                }}
-                            >
-                                <Image
-                                    src={member.image}
-                                    alt={`Portrait of ${member.name}`}
-                                    width={110}
-                                    height={110}
-                                    style={{
-                                        borderRadius: "50%",
-                                        objectFit: "cover",
-                                        border: "4px solid #f28b82",
-                                        boxShadow: "0 4px 12px rgba(32, 54, 77, 0.15)",
-                                    }}
-                                />
-                            </div>
-
-                            {/* Member spotlight label */}
-                            <p
-                                style={{
-                                    color: "#087b83",
-                                    fontWeight: 700,
-                                    letterSpacing: "1px",
-                                    fontSize: "0.8rem",
-                                }}
-                            >
-                                MEMBER SPOTLIGHT
-                            </p>
-
-                            <h2 style={{ color: "#20364d", marginTop: "12px" }}>
-                                {member.name}, {member.age}
-                            </h2>
-
-                            <p style={{ color: "#64748b", marginTop: "6px" }}>
-                                {member.occupation} · {member.location}
-                            </p>
-
-                            <h3
-                                style={{
-                                    color: "#087b83",
-                                    marginTop: "24px",
-                                    fontSize: "1.15rem",
-                                }}
-                            >
-                                {member.title}
-                            </h3>
-
-                            <p
-                                style={{
-                                    color: "#475569",
-                                    lineHeight: 1.7,
-                                    marginTop: "14px",
-                                }}
-                            >
-                                    {member.story.split(/\s+/).length > 30
-                                        ? member.story.split(/\s+/).slice(0, 30).join(" ") + "..."
-                                        : member.story}
-                            </p>
-
-                            <div
-                                style={{
-                                    display: "flex",
-                                    flexWrap: "wrap",
-                                    gap: "8px",
-                                    marginTop: "24px",
-                                }}
-                            >
-                                {member.interests.map((interest) => (
-                                    <span
-                                        key={interest}
-                                        style={{
-                                            backgroundColor: "#e6f3f2",
-                                            color: "#087b83",
-                                            padding: "7px 12px",
-                                            borderRadius: "20px",
-                                            fontSize: "0.8rem",
-                                            fontWeight: 600,
-                                        }}
-                                    >
-                                        {interest}
-                                    </span>
-                                ))}
-                            </div>
-                            </article>
-                        </Link>
-                    ))}
-
 
                     {approvedProfiles.map((profile) => (
                         <Link
