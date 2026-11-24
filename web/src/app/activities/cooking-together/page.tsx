@@ -98,27 +98,31 @@ export default function CookingTogether() {
           </div>
 
           <div className={styles.grid}>
-            {cookingActivities.map((activity) => (
-              <article
-                key={activity.title}
-                className={styles.card}
-              >
-                <div className={styles.imageWrapper}>
-                  <Image
-                    src={activity.image}
-                    alt={activity.title}
-                    fill
-                    sizes="(max-width: 600px) 100vw, (max-width: 900px) 50vw, 33vw"
-                    className={styles.cardImage}
-                  />
-                </div>
+            {cookingActivities.map((activity) => {
+              const slug = activity.title.toLowerCase().replace(/\s+/g, "-");
+              return (
+                <Link
+                  key={activity.title}
+                  href={`/activities/${slug}`}
+                  className={styles.card}
+                >
+                  <div className={styles.imageWrapper}>
+                    <Image
+                      src={activity.image}
+                      alt={activity.title}
+                      fill
+                      sizes="(max-width: 600px) 100vw, (max-width: 900px) 50vw, 33vw"
+                      className={styles.cardImage}
+                    />
+                  </div>
 
-                <div className={styles.cardContent}>
-                  <h2>{activity.title}</h2>
-                  <p>{activity.description}</p>
-                </div>
-              </article>
-            ))}
+                  <div className={styles.cardContent}>
+                    <h2>{activity.title}</h2>
+                    <p>{activity.description}</p>
+                  </div>
+                </Link>
+              );
+            })}
           </div>
         </section>
 
@@ -140,4 +144,3 @@ export default function CookingTogether() {
     </div>
   );
 }
-

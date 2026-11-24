@@ -98,27 +98,31 @@ export default function SportsRecreation() {
           </div>
 
           <div className={styles.grid}>
-            {sports.map((sport) => (
-              <article
-                key={sport.title}
-                className={styles.card}
-              >
-                <div className={styles.imageWrapper}>
-                  <Image
-                    src={sport.image}
-                    alt={sport.title}
-                    fill
-                    sizes="(max-width: 600px) 100vw, (max-width: 900px) 50vw, 33vw"
-                    className={styles.cardImage}
-                  />
-                </div>
+            {sports.map((sport) => {
+              const slug = sport.title.toLowerCase().replace(/\s+/g, "-");
+              return (
+                <Link
+                  key={sport.title}
+                  href={`/activities/${slug}`}
+                  className={styles.card}
+                >
+                  <div className={styles.imageWrapper}>
+                    <Image
+                      src={sport.image}
+                      alt={sport.title}
+                      fill
+                      sizes="(max-width: 600px) 100vw, (max-width: 900px) 50vw, 33vw"
+                      className={styles.cardImage}
+                    />
+                  </div>
 
-                <div className={styles.cardContent}>
-                  <h2>{sport.title}</h2>
-                  <p>{sport.description}</p>
-                </div>
-              </article>
-            ))}
+                  <div className={styles.cardContent}>
+                    <h2>{sport.title}</h2>
+                    <p>{sport.description}</p>
+                  </div>
+                </Link>
+              );
+            })}
           </div>
         </section>
 
@@ -140,4 +144,3 @@ export default function SportsRecreation() {
     </div>
   );
 }
-
