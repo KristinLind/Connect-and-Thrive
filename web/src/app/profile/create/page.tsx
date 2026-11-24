@@ -49,6 +49,7 @@ export default function CreateProfilePage() {
     const [accessDenied, setAccessDenied] = useState(false);
     const [selectedPhoto, setSelectedPhoto] = useState<File | null>(null);
     const [photoPreview, setPhotoPreview] = useState<string | null>(null);
+    const [savedPhotoUrl, setSavedPhotoUrl] = useState<string | null>(null);
     const [uploadingPhoto, setUploadingPhoto] = useState(false);
     const [photoMessage, setPhotoMessage] = useState("");
     const [profileExists, setProfileExists] = useState(false);
@@ -74,6 +75,12 @@ export default function CreateProfilePage() {
                 if (data.profile) {
                     const profile = data.profile;
                     setProfileExists(true);
+
+                    if (profile.photoUrl && profile.id) {
+                        setSavedPhotoUrl(
+                            `/api/members/photo?memberId=${encodeURIComponent(profile.id)}`
+                        );
+                    }
 
                     setForm({
                         displayName: profile.displayName ?? "",
@@ -232,7 +239,7 @@ export default function CreateProfilePage() {
         >
             <div
                 style={{
-                    maxWidth: "780px",
+                    maxWidth: "1200px",
                     margin: "0 auto",
                     background: "#ffffff",
                     padding: "35px",
@@ -253,7 +260,7 @@ export default function CreateProfilePage() {
                 </p>
 
                 <h1 style={{ color: "#20364d", marginBottom: 10 }}>
-                    Create My Profile
+                    {profileExists ? "Edit My Profile" : "Create My Profile"}
                 </h1>
 
                 <p style={{ color: "#64748b", marginBottom: 30 }}>
@@ -263,8 +270,8 @@ export default function CreateProfilePage() {
 
                 <form onSubmit={saveProfile}>
 
-<div
-    style={{
+                    <div
+                        style={{
                             padding: 22,
                             marginBottom: 28,
                             background: "#f0f9f9",
@@ -281,10 +288,14 @@ export default function CreateProfilePage() {
                             recognize you. JPG, PNG, or WebP, up to 5 MB.
                         </p>
 
-                        {photoPreview && (
+                        {(photoPreview || savedPhotoUrl) && (
                             <img
-                                src={photoPreview}
-                                alt="Selected profile photograph preview"
+                                src={photoPreview || savedPhotoUrl || ""}
+                                alt={
+                                    photoPreview
+                                        ? "New profile photograph preview"
+                                        : "Your saved profile photograph"
+                                }
                                 style={{
                                     width: 140,
                                     height: 140,
@@ -583,7 +594,11 @@ export default function CreateProfilePage() {
                             width: "100%",
                         }}
                     >
-                        {saving ? "Saving..." : "Save My Profile"}
+                        {saving
+                            ? "Saving..."
+                            : profileExists
+                                ? "Save Changes"
+                                : "Create My Profile"}
                     </button>
 
                     <p style={{ textAlign: "center", marginTop: 22 }}>

@@ -77,7 +77,7 @@ async function MemberDetailContent({ params }: PageProps) {
     return (
         <main
             style={{
-                maxWidth: "850px",
+                maxWidth: "1400px",
                 margin: "40px auto",
                 padding: "30px",
             }}
