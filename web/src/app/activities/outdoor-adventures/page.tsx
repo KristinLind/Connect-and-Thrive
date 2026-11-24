@@ -97,28 +97,32 @@ export default function OutdoorAdventures() {
             </p>
           </div>
 
-          <div className={styles.grid}>
-            {adventures.map((adventure) => (
-              <article
-                key={adventure.title}
-                className={styles.card}
-              >
-                <div className={styles.imageWrapper}>
-                  <Image
-                    src={adventure.image}
-                    alt={adventure.title}
-                    fill
-                    sizes="(max-width: 600px) 100vw, (max-width: 900px) 50vw, 33vw"
-                    className={styles.cardImage}
-                  />
-                </div>
+                    <div className={styles.grid}>
+            {adventures.map((adventure) => {
+              const slug = adventure.title.toLowerCase().replace(/\s+/g, "-");
+              return (
+                <Link
+                  key={adventure.title}
+                  href={`/activities/${slug}`}
+                  className={styles.card}
+                >
+                  <div className={styles.imageWrapper}>
+                    <Image
+                      src={adventure.image}
+                      alt={adventure.title}
+                      fill
+                      sizes="(max-width: 600px) 100vw, (max-width: 900px) 50vw, 33vw"
+                      className={styles.cardImage}
+                    />
+                  </div>
 
-                <div className={styles.cardContent}>
-                  <h2>{adventure.title}</h2>
-                  <p>{adventure.description}</p>
-                </div>
-              </article>
-            ))}
+                  <div className={styles.cardContent}>
+                    <h2>{adventure.title}</h2>
+                    <p>{adventure.description}</p>
+                  </div>
+                </Link>
+              );
+            })}
           </div>
         </section>
 

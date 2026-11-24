@@ -100,27 +100,36 @@ export default function GamesSocialNightsPage() {
           </div>
 
           <div className={styles.grid}>
-            {games.map((game) => (
-              <article
-                key={game.title}
-                className={styles.card}
-              >
-                <div className={styles.imageWrapper}>
-                  <Image
-                    src={game.image}
-                    alt={game.title}
-                    fill
-                    sizes="(max-width: 600px) 100vw, (max-width: 900px) 50vw, 33vw"
-                    className={styles.cardImage}
-                  />
-                </div>
+            {games.map((game) => {
+              const slug = game.title
+                .toLowerCase()
+                .replace(/&/g, "")
+                .replace(/'/g, "")
+                .replace(/\s+/g, "-")
+                .replace(/-+/g, "-");
+              return (
+                <Link
+                  key={game.title}
+                  href={`/activities/${slug}`}
+                  className={styles.card}
+                >
+                  <div className={styles.imageWrapper}>
+                    <Image
+                      src={game.image}
+                      alt={game.title}
+                      fill
+                      sizes="(max-width: 600px) 100vw, (max-width: 900px) 50vw, 33vw"
+                      className={styles.cardImage}
+                    />
+                  </div>
 
-                <div className={styles.cardContent}>
-                  <h2>{game.title}</h2>
-                  <p>{game.description}</p>
-                </div>
-              </article>
-            ))}
+                  <div className={styles.cardContent}>
+                    <h2>{game.title}</h2>
+                    <p>{game.description}</p>
+                  </div>
+                </Link>
+              );
+            })}
           </div>
         </section>
 
