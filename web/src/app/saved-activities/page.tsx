@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { requireApprovedAccess } from "@/lib/auth/access";
 import { prisma } from "@/lib/prisma";
+import { FavoriteButton } from "@/components/activities/favorite-button";
 import styles from "./page.module.css";
 
 export const instant = false;
@@ -46,10 +47,10 @@ export default async function SavedActivitiesPage() {
             </p>
 
             <Link
-              href="/activities"
+              href="/activities/events"
               className={styles.button}
             >
-              Explore Activities
+              Explore Upcoming Activities
             </Link>
           </section>
         ) : (
@@ -74,6 +75,12 @@ export default async function SavedActivitiesPage() {
                     {favorite.activity.date.toLocaleDateString("en-US")}
                   </p>
                 </div>
+
+                <FavoriteButton
+                  activityId={favorite.activity.id}
+                  initialSaved={true}
+                  removeOnly={true}
+                />
               </article>
             ))}
           </section>

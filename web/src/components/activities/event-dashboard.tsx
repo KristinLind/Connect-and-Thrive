@@ -2,8 +2,9 @@
 
 import { FormEvent, useState } from "react";
 import { useRouter } from "next/navigation";
+import { FavoriteButton } from "@/components/activities/favorite-button";
 
-type ActivityRecord = { id: string; title: string; description: string; location: string; date: string; canDelete: boolean };
+type ActivityRecord = { id: string; title: string; description: string; location: string; date: string; canDelete: boolean; isSaved: boolean; };
 
 export function EventDashboard({ initialEvents }: { initialEvents: ActivityRecord[] }) {
     const router = useRouter();
@@ -59,6 +60,7 @@ export function EventDashboard({ initialEvents }: { initialEvents: ActivityRecor
             {initialEvents.map((activity) => <li key={activity.id} style={{ marginBottom: 20 }}>
                 <h3>{activity.title}</h3><p>{activity.description}</p>
                 <p>{activity.location} · {new Date(activity.date).toLocaleString()}</p>
+                <FavoriteButton activityId={activity.id} initialSaved={activity.isSaved}/>
                 {activity.canDelete && <button onClick={() => deleteEvent(activity.id)}>Delete event</button>}
             </li>)}
         </ul>}
