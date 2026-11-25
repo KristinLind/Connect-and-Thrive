@@ -19,6 +19,7 @@ export default async function AdminReviewPage() {
         },
     });
 
+
     return (
         <main
             style={{
@@ -214,6 +215,7 @@ export default async function AdminReviewPage() {
                     </div>
                 )}
             </div>
+
         </main>
     );
 }

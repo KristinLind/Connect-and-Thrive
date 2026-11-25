@@ -161,6 +161,47 @@ async function MemberDetailContent({ params }: PageProps) {
                         .join(" · ")}
                 </p>
 
+                {profile.authUserId !== session.user.id && (
+                    <div
+                        style={{
+                            display: "flex",
+                            justifyContent: "center",
+                            marginTop: "24px",
+                            marginBottom: "12px",
+                        }}
+                    >
+                        {profile.allowMessages ? (
+                            <button
+                                type="button"
+                                disabled
+                                title="Connection requests are coming soon"
+                                style={{
+                                    backgroundColor: "#087b83",
+                                    color: "#ffffff",
+                                    padding: "12px 26px",
+                                    border: "none",
+                                    borderRadius: "10px",
+                                    fontSize: "1rem",
+                                    fontWeight: 600,
+                                    opacity: 0.65,
+                                    cursor: "not-allowed",
+                                }}
+                            >
+                                Request to Connect
+                            </button>
+                        ) : (
+                            <p
+                                style={{
+                                    color: "#64748b",
+                                    fontSize: "0.9rem",
+                                }}
+                            >
+                                This member is not accepting connection requests.
+                            </p>
+                        )}
+                    </div>
+                )}
+
                 {title && (
                     <h2
                         style={{
