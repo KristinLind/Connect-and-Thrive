@@ -31,19 +31,25 @@ export async function GET(request: Request) {
             return new Response("Member ID required.", { status: 400 });
         }
 
-        // Only share photographs of approved, opted-in members
+
+        // Members can view their own photo even when their profile is private.
+        // Other members can only view approved, shared profiles.
         const profile = await prisma.memberProfile.findFirst({
             where: {
                 id: memberId,
-                shareProfile: true,
                 userAccess: {
                     status: "APPROVED",
                 },
+                OR: [
+                    { authUserId: session.user.id },
+                    { shareProfile: true },
+                ],
             },
             select: {
                 photoUrl: true,
             },
         });
+
 
         if (!profile?.photoUrl) {
             return new Response("Photograph not found.", {
