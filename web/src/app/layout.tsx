@@ -1,3 +1,4 @@
+
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import { SiteHeader } from "@/components/site-header";
@@ -14,9 +15,35 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Connect & Thrive",
+  title: {
+    default: "Connect & Thrive | Friendship • Activities • Belonging",
+    template: "%s | Connect & Thrive",
+  },
+
   description:
-    "Build meaningful friendships through activities, service, and community.",
+    "Connect & Thrive is a faith-centered community for young adults ages 20–35. Discover wholesome activities, build meaningful friendships, and find a place to belong.",
+
+  applicationName: "Connect & Thrive",
+
+  keywords: [
+    "Connect and Thrive",
+    "young adult community",
+    "friendship",
+    "activities",
+    "belonging",
+    "faith-centered community",
+    "service opportunities",
+    "social activities",
+  ],
+
+  icons: {
+    icon: [
+      {
+        url: "/icon.png",
+        type: "image/png",
+      },
+    ],
+  },
 };
 
 export default function RootLayout({
@@ -34,3 +61,4 @@ export default function RootLayout({
     </html>
   );
 }
+

@@ -100,27 +100,36 @@ export default function ServiceOpportunitiesPage() {
           </div>
 
           <div className={styles.grid}>
-            {services.map((service) => (
-              <article
-                key={service.title}
-                className={styles.card}
-              >
-                <div className={styles.imageWrapper}>
-                  <Image
-                    src={service.image}
-                    alt={service.title}
-                    fill
-                    sizes="(max-width: 600px) 100vw, (max-width: 900px) 50vw, 33vw"
-                    className={styles.cardImage}
-                  />
-                </div>
+            {services.map((service) => {
+              const slug = service.title
+                .toLowerCase()
+                .replace(/&/g, "")
+                .replace(/'/g, "")
+                .replace(/\s+/g, "-")
+                .replace(/-+/g, "-");
+              return (
+                <Link
+                  key={service.title}
+                  href={`/activities/${slug}`}
+                  className={styles.card}
+                >
+                  <div className={styles.imageWrapper}>
+                    <Image
+                      src={service.image}
+                      alt={service.title}
+                      fill
+                      sizes="(max-width: 600px) 100vw, (max-width: 900px) 50vw, 33vw"
+                      className={styles.cardImage}
+                    />
+                  </div>
 
-                <div className={styles.cardContent}>
-                  <h2>{service.title}</h2>
-                  <p>{service.description}</p>
-                </div>
-              </article>
-            ))}
+                  <div className={styles.cardContent}>
+                    <h2>{service.title}</h2>
+                    <p>{service.description}</p>
+                  </div>
+                </Link>
+              );
+            })}
           </div>
         </section>
 

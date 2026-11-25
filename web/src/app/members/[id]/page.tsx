@@ -1,10 +1,9 @@
 import Image from "next/image";
 import Link from "next/link";
 import { notFound, redirect } from "next/navigation";
+import { Suspense } from "react";
 import { auth } from "@/lib/auth/server";
 import { prisma } from "@/lib/prisma";
-import { members } from "@/lib/sample-members";
-import { Suspense } from "react";
 
 type PageProps = {
     params: Promise<{ id: string }>;
@@ -12,14 +11,20 @@ type PageProps = {
 
 export default function MemberDetailPage({ params }: PageProps) {
     return (
-        <Suspense fallback={<main style={{ padding: "40px" }}>Loading member story...</main>}>
+        <Suspense
+            fallback={
+                <main style={{ padding: "40px" }}>
+                    Loading member profile...
+                </main>
+            }
+        >
             <MemberDetailContent params={params} />
         </Suspense>
     );
 }
 
 async function MemberDetailContent({ params }: PageProps) {
-    // Require an approved member account
+    // Only approved members can view the member directory.
     const { data: session } = await auth.getSession();
 
     if (!session?.user) {
@@ -27,7 +32,9 @@ async function MemberDetailContent({ params }: PageProps) {
     }
 
     const access = await prisma.userAccess.findUnique({
-        where: { authUserId: session.user.id },
+        where: {
+            authUserId: session.user.id,
+        },
     });
 
     if (access?.status === "BLOCKED") {
@@ -40,49 +47,51 @@ async function MemberDetailContent({ params }: PageProps) {
 
     const { id } = await params;
 
-    // Find one of our existing demonstration members
-    const sampleMember = members.find(
-        (member) => member.name.toLowerCase() === id.toLowerCase()
-    );
-
-    // Otherwise retrieve a real, opted-in member
-    const profile = sampleMember
-        ? null
-        : await prisma.memberProfile.findFirst({
-            where: {
-                id,
-                shareProfile: true,
-                shareStory: true,
-                userAccess: { status: "APPROVED" },
+    // Retrieve the member directly from Neon PostgreSQL.
+    // Only approved members who share their profiles are visible.
+    const profile = await prisma.memberProfile.findFirst({
+        where: {
+            id,
+            shareProfile: true,
+            userAccess: {
+                status: "APPROVED",
             },
-        });
+        },
+    });
 
-    if (!sampleMember && !profile) {
+    if (!profile) {
         notFound();
     }
 
-    const name = sampleMember?.name ?? profile!.displayName;
-    const occupation = sampleMember?.occupation ?? profile?.occupation;
-    const location = sampleMember?.location ?? profile?.location;
-    const title = sampleMember?.title ?? profile?.storyTitle;
-    const story = sampleMember?.story ?? profile?.story;
-    const interests = sampleMember?.interests ?? profile?.interests ?? [];
+    const name = profile.displayName;
+    const occupation = profile.occupation;
+    const location = profile.location;
+    const interests = profile.interests;
 
-    const image = sampleMember
-        ? sampleMember.image
-        : profile?.photoUrl
-            ? `/api/members/photo?memberId=${encodeURIComponent(profile.id)}`
-            : null;
+    // Respect the member's story privacy preference.
+    const title = profile.shareStory ? profile.storyTitle : null;
+    const story = profile.shareStory ? profile.story : null;
+
+    const image = profile.photoUrl
+        ? `/api/members/photo?memberId=${encodeURIComponent(profile.id)}`
+        : null;
 
     return (
         <main
             style={{
-                maxWidth: "850px",
+                maxWidth: "1400px",
                 margin: "40px auto",
                 padding: "30px",
             }}
         >
-            <Link href="/members" style={{ color: "#087b83" }}>
+            <Link
+                href="/members"
+                style={{
+                    color: "#087b83",
+                    textDecoration: "none",
+                    fontWeight: 600,
+                }}
+            >
                 ← Back to Members
             </Link>
 
@@ -96,20 +105,38 @@ async function MemberDetailContent({ params }: PageProps) {
                     borderTop: "6px solid #087b83",
                 }}
             >
-                {image && (
+                {image ? (
                     <div style={{ textAlign: "center" }}>
                         <Image
                             src={image}
                             alt={`Portrait of ${name}`}
                             width={140}
                             height={140}
-                            unoptimized={!sampleMember}
+                            unoptimized
                             style={{
                                 borderRadius: "50%",
                                 objectFit: "cover",
                                 border: "4px solid #f28b82",
                             }}
                         />
+                    </div>
+                ) : (
+                    <div
+                        style={{
+                            width: 140,
+                            height: 140,
+                            borderRadius: "50%",
+                            backgroundColor: "#e6f3f2",
+                            color: "#087b83",
+                            display: "flex",
+                            alignItems: "center",
+                            justifyContent: "center",
+                            fontSize: "3rem",
+                            fontWeight: 700,
+                            margin: "0 auto",
+                        }}
+                    >
+                        {name.charAt(0).toUpperCase()}
                     </div>
                 )}
 
@@ -121,7 +148,6 @@ async function MemberDetailContent({ params }: PageProps) {
                     }}
                 >
                     {name}
-                    {sampleMember ? `, ${sampleMember.age}` : ""}
                 </h1>
 
                 <p
@@ -130,7 +156,9 @@ async function MemberDetailContent({ params }: PageProps) {
                         textAlign: "center",
                     }}
                 >
-                    {[occupation, location].filter(Boolean).join(" · ")}
+                    {[occupation, location]
+                        .filter(Boolean)
+                        .join(" · ")}
                 </p>
 
                 {title && (
@@ -157,7 +185,12 @@ async function MemberDetailContent({ params }: PageProps) {
                     </p>
                 )}
 
-                <h3 style={{ color: "#20364d", marginTop: "32px" }}>
+                <h3
+                    style={{
+                        color: "#20364d",
+                        marginTop: "32px",
+                    }}
+                >
                     Interests
                 </h3>
 

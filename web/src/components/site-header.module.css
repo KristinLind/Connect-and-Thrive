@@ -148,3 +148,30 @@
         font-size: 0.95rem;
     }
 }
+
+/* Profile management link for signed-in members */
+.authAction {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+
+.profileLink {
+    color: #205650;
+    font-size: 0.95rem;
+    font-weight: 700;
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+.profileLink:hover {
+    color: #ff806e;
+    text-decoration: underline;
+}
+
+.profileLink:focus-visible {
+    outline: 2px solid #205650;
+    outline-offset: 4px;
+    border-radius: 3px;
+}

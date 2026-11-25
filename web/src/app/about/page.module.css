@@ -1,4 +1,6 @@
-/* About Us Hero Section */
+/* =========================================
+   ABOUT US HERO
+========================================= */
 
 .hero {
     background: #fff1ed;
@@ -46,7 +48,7 @@
     max-width: 480px;
 }
 
-/* Introduction Photograph */
+/* Hero Photograph */
 
 .heroImage {
     position: relative;
@@ -61,39 +63,150 @@
     object-fit: cover;
 }
 
-/* Our Mission Section */
+/* =========================================
+   TWO-COLUMN ABOUT SECTION
+========================================= */
 
 .aboutSection {
     background: #ffffff;
-    padding: 55px 6% 50px;
+    padding: 65px 6% 85px;
 }
 
-.content {
-    max-width: 850px;
+.aboutGrid {
+    display: grid;
+    grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr);
+    align-items: stretch;
+    gap: 32px;
+    max-width: 1280px;
     margin: 0 auto;
 }
 
-.content h2 {
+/* =========================================
+   SHARED CARD STYLING
+========================================= */
+
+.storyCard,
+.missionCard {
+    min-width: 0;
+    height: 100%;
+    box-sizing: border-box;
+    border-radius: 22px;
+    padding: 38px;
+    border: 1px solid rgba(32, 52, 74, 0.08);
+
+    box-shadow:
+        0 14px 35px rgba(32, 52, 74, 0.18),
+        0 5px 14px rgba(32, 52, 74, 0.09);
+
+    transition: box-shadow 0.25s ease;
+}
+
+.storyCard:hover,
+.missionCard:hover {
+    box-shadow:
+        0 20px 45px rgba(32, 52, 74, 0.22),
+        0 8px 20px rgba(32, 52, 74, 0.12);
+}
+
+.storyCard h2,
+.missionCard h2 {
     color: var(--navy);
-    font-size: clamp(1.9rem, 3vw, 2.5rem);
-    line-height: 1.2;
+    font-size: clamp(1.7rem, 2.5vw, 2.1rem);
+    line-height: 1.25;
     margin: 0 0 22px;
 }
 
-.content p {
+.storyCard p,
+.missionCard p {
     color: #526171;
-    font-size: 1.05rem;
+    font-size: 1rem;
     line-height: 1.8;
-    margin: 0 0 20px;
+    margin: 0 0 18px;
 }
 
-/* Friendship First Highlight */
+/* =========================================
+   LEFT CARD - FOUNDER'S STORY
+========================================= */
+
+.storyCard {
+    background: #e5f4f2;
+    border-top: 5px solid var(--teal);
+}
+
+/* Small Founder Photograph */
+
+.storyPhoto {
+    position: relative;
+    width: 200px;
+    height: 155px;
+    max-width: 100%;
+    margin: 0 auto 25px;
+    border-radius: 14px;
+    overflow: hidden;
+
+    box-shadow:
+        0 6px 18px rgba(32, 52, 74, 0.18);
+}
+
+.storyImage {
+    object-fit: cover;
+    object-position: center;
+}
+
+/* Founder Closing Message */
+
+.storyCard .storyClosing {
+    color: var(--teal);
+    font-size: 1.15rem;
+    font-weight: 700;
+    line-height: 1.6;
+    margin-top: 28px;
+    margin-bottom: 15px;
+}
+
+.storyCard .storySignature {
+    color: var(--navy);
+    font-style: italic;
+    font-weight: 600;
+    margin-bottom: 0;
+}
+
+/* =========================================
+   RIGHT CARD - OUR MISSION
+========================================= */
+
+.missionCard {
+    background: #ffffff;
+    border-top: 5px solid var(--teal);
+}
+
+/* Additional Mission Subheadings */
+
+.missionSubheading {
+    color: var(--navy);
+    font-size: 1.3rem;
+    font-weight: 700;
+    line-height: 1.4;
+    margin: 0 0 16px;
+}
+
+/* Mission Section Dividers */
+
+.missionDivider {
+    height: 1px;
+    background: #dce9e7;
+    margin: 28px 0;
+}
+
+/* =========================================
+   FRIENDSHIP FIRST HIGHLIGHT
+========================================= */
 
 .friendshipNote {
     background: #fff1ed;
     border-left: 5px solid var(--teal);
     border-radius: 0 14px 14px 0;
-    padding: 25px 30px;
+    padding: 25px;
     margin-top: 30px;
 }
 
@@ -108,9 +221,30 @@
     margin: 0;
 }
 
-/* Tablet and Mobile */
+/* =========================================
+   TABLET RESPONSIVENESS
+========================================= */
+
+@media (max-width: 900px) {
+
+    .aboutGrid {
+        grid-template-columns: 1fr;
+        max-width: 680px;
+        gap: 30px;
+    }
+
+    .storyCard,
+    .missionCard {
+        height: auto;
+    }
+}
+
+/* =========================================
+   MOBILE RESPONSIVENESS
+========================================= */
 
 @media (max-width: 768px) {
+
     .hero {
         padding: 35px 6%;
     }
@@ -123,12 +257,10 @@
     .heroText h1 {
         font-size: 2.1rem;
         line-height: 1.15;
-        margin-bottom: 14px;
     }
 
     .tagline {
         font-size: 1.15rem;
-        margin-bottom: 14px;
     }
 
     .introDescription {
@@ -142,22 +274,31 @@
     }
 
     .aboutSection {
-        padding: 45px 6% 40px;
+        padding: 45px 6% 60px;
     }
 
-    .content h2 {
+    .storyCard,
+    .missionCard {
+        padding: 30px;
+        border-radius: 18px;
+    }
+
+    .storyCard h2,
+    .missionCard h2 {
         font-size: 1.9rem;
     }
 
     .friendshipNote {
         padding: 22px;
-        margin-top: 25px;
     }
 }
 
-/* Smaller Phones */
+/* =========================================
+   SMALL PHONE RESPONSIVENESS
+========================================= */
 
 @media (max-width: 480px) {
+
     .heroText h1 {
         font-size: 2rem;
     }
@@ -172,10 +313,72 @@
     }
 
     .aboutSection {
-        padding: 40px 6% 35px;
+        padding: 40px 5% 55px;
+    }
+
+    .aboutGrid {
+        gap: 25px;
+    }
+
+    .storyCard,
+    .missionCard {
+        padding: 22px;
+    }
+
+    .storyCard h2,
+    .missionCard h2 {
+        font-size: 1.7rem;
+    }
+
+    .storyPhoto {
+        width: 180px;
+        height: 140px;
     }
 
     .friendshipNote {
         padding: 20px;
+    }
+
+    .missionSubheading {
+        font-size: 1.2rem;
+    }
+}
+
+/* Respect reduced-motion preferences */
+
+@media (prefers-reduced-motion: reduce) {
+
+    .storyCard,
+    .missionCard {
+        transition: none;
+    }
+}
+
+/* Connect & Thrive Logo in Mission Card */
+
+.missionLogo {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 45px;
+    padding: 20px 0;
+}
+
+.logoImage {
+    display: block;
+    width: 100%;
+    max-width: 350px;
+    height: auto;
+    object-fit: contain;
+}
+
+@media (max-width: 480px) {
+    .missionLogo {
+        margin-top: 30px;
+        padding: 10px 0;
+    }
+
+    .logoImage {
+        max-width: 280px;
     }
 }
