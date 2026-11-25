@@ -1,0 +1,132 @@
+.page {
+    min-height: 100vh;
+    background: var(--cream);
+    color: var(--navy);
+}
+
+.main {
+    max-width: 1250px;
+    margin: 0 auto;
+    padding: 80px 6% 100px;
+}
+
+.heading {
+    text-align: center;
+    max-width: 700px;
+    margin: 0 auto 50px;
+}
+
+.sectionLabel {
+    display: block;
+    color: var(--teal);
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 2px;
+    margin-bottom: 18px;
+}
+
+.heading h1 {
+    font-size: clamp(2rem, 4vw, 3.2rem);
+    color: var(--navy);
+    margin-bottom: 20px;
+}
+
+.heading p {
+    font-size: 1.1rem;
+    color: #526171;
+    line-height: 1.7;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr));
+    gap: 28px;
+}
+
+.card {
+    background: var(--white);
+    border-radius: 18px;
+    padding: 25px;
+    box-shadow: 0 5px 20px rgba(32, 52, 74, 0.09);
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    overflow-wrap: anywhere;
+}
+
+.card h2 {
+    color: var(--teal);
+    font-size: 1.4rem;
+    font-family: var(--font-heading);
+}
+
+.card p {
+    color: #526171;
+    line-height: 1.7;
+}
+
+.details {
+    font-size: 0.95rem;
+    margin-top: 8px;
+}
+
+.emptyState {
+    max-width: 650px;
+    margin: 0 auto;
+    padding: 50px 25px;
+    text-align: center;
+    background: var(--white);
+    border-radius: 18px;
+    box-shadow: 0 5px 20px rgba(32, 52, 74, 0.09);
+}
+
+.emptyState h2 {
+    color: var(--teal);
+    margin-bottom: 15px;
+}
+
+.emptyState p {
+    color: #526171;
+    line-height: 1.7;
+    margin-bottom: 25px;
+}
+
+.button {
+    display: inline-block;
+    background: var(--coral);
+    color: var(--navy);
+    padding: 12px 24px;
+    border-radius: 30px;
+    font-weight: 600;
+    text-decoration: none;
+    border: none;
+    cursor: pointer;
+    transition: background 0.25s ease;
+}
+
+.button:hover {
+    background: var(--gold);
+}
+
+.button:focus-visible {
+    outline: 2px solid var(--navy);
+    outline-offset: 4px;
+}
+
+@media (max-width: 700px) {
+    .main {
+        padding: 50px 5% 70px;
+    }
+
+    .heading {
+        margin-bottom: 30px;
+    }
+
+    .grid {
+        grid-template-columns: 1fr;
+    }
+
+    .emptyState {
+        padding: 35px 20px;
+    }
+}

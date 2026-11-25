@@ -1,53 +1,84 @@
 import Link from "next/link";
 import { requireApprovedAccess } from "@/lib/auth/access";
 import { prisma } from "@/lib/prisma";
+import styles from "./page.module.css";
+
+export const instant = false;
 
 export default async function SavedActivitiesPage() {
-    const { session } = await requireApprovedAccess();
+  const { session } = await requireApprovedAccess();
 
-    const savedActivities = await prisma.favorite.findMany({
-        where: {
-            userId: session.user.id,
-        },
-        include: {
-            activity: true,
-        },
-        orderBy: {
-            createdAt: "desc",
-        },
-    });
+  const savedActivities = await prisma.favorite.findMany({
+    where: {
+      userId: session.user.id,
+    },
+    include: {
+      activity: true,
+    },
+    orderBy: {
+      createdAt: "desc",
+    },
+  });
 
-    return (
-        <main style={{ maxWidth: "1000px", margin: "0 auto", padding: "40px 20px" }}>
-      <h1>My Saved Activities</h1>
+  return (
+    <div className={styles.page}>
+      <main className={styles.main}>
+        <section className={styles.heading}>
+          <span className={styles.sectionLabel}>
+            YOUR PERSONAL COLLECTION
+          </span>
 
-      <p>
-        Keep track of activities you're interested in and
-        return to them whenever you're ready.
-      </p>
+          <h1>My Saved Activities</h1>
 
-      {savedActivities.length === 0 ? (
-        <div>
-          <h2>No saved activities yet</h2>
           <p>
-            Explore activities and save the ones that interest you!
+            Keep track of activities you're interested in and
+            return to them whenever you're ready.
           </p>
-          <Link href="/activities">Explore Activities</Link>
-        </div>
-      ) : (
-        <div>
-          {savedActivities.map((favorite) => (
-            <article key={favorite.id}>
-              <h2>{favorite.activity.title}</h2>
-              <p>{favorite.activity.description}</p>
-              <p>Location: {favorite.activity.location}</p>
-              <p>
-                Date: {favorite.activity.date.toLocaleDateString("en-US")}
-              </p>
-            </article>
-          ))}
-        </div>
-      )}
-    </main>
+        </section>
+
+        {savedActivities.length === 0 ? (
+          <section className={styles.emptyState}>
+            <h2>No saved activities yet</h2>
+
+            <p>
+              Explore activities and save the ones that
+              interest you!
+            </p>
+
+            <Link
+              href="/activities"
+              className={styles.button}
+            >
+              Explore Activities
+            </Link>
+          </section>
+        ) : (
+          <section className={styles.grid}>
+            {savedActivities.map((favorite) => (
+              <article
+                key={favorite.id}
+                className={styles.card}
+              >
+                <h2>{favorite.activity.title}</h2>
+
+                <p>{favorite.activity.description}</p>
+
+                <div className={styles.details}>
+                  <p>
+                    <strong>Location:</strong>{" "}
+                    {favorite.activity.location}
+                  </p>
+
+                  <p>
+                    <strong>Date:</strong>{" "}
+                    {favorite.activity.date.toLocaleDateString("en-US")}
+                  </p>
+                </div>
+              </article>
+            ))}
+          </section>
+        )}
+      </main>
+    </div>
   );
 }
