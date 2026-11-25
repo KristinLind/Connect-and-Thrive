@@ -93,6 +93,12 @@ export async function AuthNavigation() {
                     <Link href="/connections">
                         My Connections
                     </Link>
+                    <Link href="/saved-activities">
+                        My Saved Activities
+                    </Link>
+                    <Link href="/mygroups">
+                        My Groups
+                    </Link>
                     <SignOutButton />
                 </div>
             </details>
