@@ -14,6 +14,11 @@ export default auth.middleware({
         "/blocked",
         "/api/account/access",
         "/api/admin/access",
+        "/api/activities",
+        "/api/activities/*",
+        "/api/profile",
+        "/api/profile/*",
+        "/api/members/photo",
     ],
 });
 

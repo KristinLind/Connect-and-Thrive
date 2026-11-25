@@ -89,26 +89,31 @@ export function RegisterForm() {
     const [notice, setNotice] = useState("");
 
     useEffect(() => {
+        let draft: Record<string, unknown>;
         try {
             const saved = sessionStorage.getItem(draftKey);
             if (!saved) return;
-
-            const draft = JSON.parse(saved);
-
-            if (draft.accountCreated === true) {
-                setAccountCreated(true);
-            }
-            if (typeof draft.name === "string") setName(draft.name);
-            if (typeof draft.email === "string") setEmail(draft.email);
-            if (draft.profile) {
-                setProfile({
-                    ...initialProfile,
-                    ...draft.profile,
-                });
-            }
+            const parsed: unknown = JSON.parse(saved);
+            if (!parsed || typeof parsed !== "object" || Array.isArray(parsed)) return;
+            draft = parsed as Record<string, unknown>;
         } catch {
             // Ignore invalid saved drafts.
+            return;
         }
+
+        const timeoutId = window.setTimeout(() => {
+            if (draft.accountCreated === true) setAccountCreated(true);
+            if (typeof draft.name === "string") setName(draft.name);
+            if (typeof draft.email === "string") setEmail(draft.email);
+            if (draft.profile && typeof draft.profile === "object") {
+                setProfile({
+                    ...initialProfile,
+                    ...(draft.profile as Partial<Profile>),
+                });
+            }
+        }, 0);
+
+        return () => window.clearTimeout(timeoutId);
     }, []);
 
     useEffect(() => {

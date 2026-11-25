@@ -17,7 +17,7 @@
     margin-bottom: 13px;
 }
 
-/* Branding and Sign In button */
+/* Branding and top row */
 
 .topRow {
     display: flex;
@@ -55,10 +55,9 @@
     margin: 0;
 }
 
-/* Coral Sign In button */
+/* Sign In button */
 
-.authButton,
-.authAction button {
+.authButton {
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -74,13 +73,131 @@
     white-space: nowrap;
 }
 
-.authButton:hover,
-.authAction button:hover {
+.authButton:hover {
     background: var(--teal);
     color: #ffffff;
 }
 
-/* Bottom navigation */
+/* Signed-in navigation */
+
+.authAction {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 22px;
+}
+
+/* Notification bell */
+
+.notificationButton {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    color: var(--teal);
+    text-decoration: none;
+    border-radius: 50%;
+    transition:
+        background-color 0.2s ease,
+        color 0.2s ease;
+}
+
+.notificationButton:hover {
+    background-color: #e6f3f2;
+    color: #205650;
+}
+
+.notificationButton:focus-visible,
+.accountToggle:focus-visible {
+    outline: 2px solid var(--teal);
+    outline-offset: 3px;
+}
+
+/* Account dropdown */
+
+.accountMenu {
+    position: relative;
+}
+
+.accountToggle {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    color: var(--teal);
+    font-size: 0.95rem;
+    font-weight: 700;
+    cursor: pointer;
+    list-style: none;
+    padding: 8px;
+    border-radius: 10px;
+}
+
+.accountToggle::-webkit-details-marker {
+    display: none;
+}
+
+.accountToggle::marker {
+    content: "";
+}
+
+.accountToggle:hover {
+    background-color: #e6f3f2;
+}
+
+.accountDropdown {
+    position: absolute;
+    top: calc(100% + 10px);
+    right: 0;
+    z-index: 50;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    min-width: 190px;
+    padding: 12px;
+    background: #ffffff;
+    border: 1px solid #dbe7e5;
+    border-radius: 12px;
+    box-shadow: 0 12px 28px rgba(32, 54, 77, 0.18);
+}
+
+.accountDropdown a {
+    color: var(--navy);
+    font-size: 0.95rem;
+    font-weight: 600;
+    text-decoration: none;
+    padding: 10px 12px;
+    border-radius: 8px;
+}
+
+.accountDropdown a:hover,
+.accountDropdown a:focus-visible {
+    background-color: #e6f3f2;
+    color: var(--teal);
+}
+
+.accountDropdown button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    background: var(--coral);
+    color: var(--navy);
+    padding: 10px 12px;
+    border: none;
+    border-radius: 8px;
+    font-size: 0.95rem;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.accountDropdown button:hover {
+    background: var(--teal);
+    color: #ffffff;
+}
+
+/* Main navigation */
 
 .nav {
     display: flex;
@@ -106,13 +223,13 @@
     color: var(--teal);
 }
 
-/* Preserve keyboard accessibility without a box around links */
-
 .nav a:focus-visible {
     outline: none;
     text-decoration: underline;
     text-underline-offset: 5px;
 }
+
+/* Responsive layout */
 
 @media (max-width: 700px) {
     .header {
@@ -121,6 +238,7 @@
 
     .topRow {
         align-items: flex-start;
+        flex-wrap: wrap;
     }
 
     .logo {
@@ -132,10 +250,22 @@
         font-size: 0.85rem;
     }
 
-    .authButton,
-    .authAction button {
+    .authButton {
         padding: 10px 16px;
         font-size: 0.9rem;
+    }
+
+    .authAction {
+        gap: 10px;
+        margin-left: auto;
+    }
+
+    .accountToggle {
+        font-size: 0.9rem;
+    }
+
+    .accountDropdown {
+        right: 0;
     }
 
     .nav {
@@ -149,29 +279,29 @@
     }
 }
 
-/* Profile management link for signed-in members */
-.authAction {
-    display: flex;
-    flex-direction: column;
+/* Signed-in member profile photograph */
+
+.accountAvatar {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    border: 3px solid var(--coral);
+    overflow: hidden;
+    display: inline-flex;
     align-items: center;
-    gap: 10px;
+    justify-content: center;
+    background-color: #e6f3f2;
+    flex-shrink: 0;
 }
 
-.profileLink {
-    color: #205650;
-    font-size: 0.95rem;
-    font-weight: 700;
-    text-decoration: none;
-    transition: color 0.2s ease;
+.accountAvatarImage {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
 }
 
-.profileLink:hover {
-    color: #ff806e;
-    text-decoration: underline;
-}
-
-.profileLink:focus-visible {
-    outline: 2px solid #205650;
-    outline-offset: 4px;
-    border-radius: 3px;
+.accountInitial {
+    color: var(--teal);
+    font-size: 1.15rem;
+    font-weight: 800;
 }

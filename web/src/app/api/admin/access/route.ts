@@ -1,20 +1,9 @@
-import { getCurrentAccess } from "@/lib/auth/access";
+import { getAdminApiAccess } from "@/lib/auth/api-access";
 import { prisma } from "@/lib/prisma";
 
 export async function PATCH(request: Request) {
-    const current = await getCurrentAccess();
-
-    if (!current) {
-        return Response.json({ error: "Sign in required." }, { status: 401 });
-    }
-
-    if (
-        !current.access ||
-        current.access.status !== "APPROVED" ||
-        !current.access.isAdmin
-    ) {
-        return Response.json({ error: "Admin access required." }, { status: 403 });
-    }
+    const { response } = await getAdminApiAccess();
+    if (response) return response;
 
     const body = (await request.json().catch(() => null)) as
         | { authUserId?: unknown; action?: unknown }
