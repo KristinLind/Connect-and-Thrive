@@ -8,18 +8,18 @@ datasource db {
 }
 
 model Activity {
-  id          String     @id @default(cuid())
+  id          String   @id @default(cuid())
   title       String
   description String
   location    String
   date        DateTime
   image       String?
-  createdAt   DateTime   @default(now())
-  updatedAt   DateTime   @updatedAt
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
   createdById String
 
-  rsvps       RSVP[]
-  favorites   Favorite[]
+  rsvps     RSVP[]
+  favorites Favorite[]
 }
 
 model RSVP {
@@ -28,7 +28,7 @@ model RSVP {
   activityId String
   createdAt  DateTime @default(now())
 
-  activity   Activity @relation(fields: [activityId], references: [id], onDelete: Cascade)
+  activity Activity @relation(fields: [activityId], references: [id], onDelete: Cascade)
 
   @@unique([userId, activityId])
 }
@@ -39,9 +39,30 @@ model Favorite {
   activityId String
   createdAt  DateTime @default(now())
 
-  activity   Activity @relation(fields: [activityId], references: [id], onDelete: Cascade)
+  activity Activity @relation(fields: [activityId], references: [id], onDelete: Cascade)
 
   @@unique([userId, activityId])
+}
+
+enum StoryStatus {
+  PENDING
+  APPROVED
+  REJECTED
+}
+
+model Story {
+  id        String      @id @default(cuid())
+  authorId  String
+  title     String
+  content   String
+  status    StoryStatus @default(PENDING)
+  createdAt DateTime    @default(now())
+  updatedAt DateTime    @updatedAt
+
+  author UserAccess @relation(fields: [authorId], references: [authUserId], onDelete: Cascade)
+
+  @@index([status, createdAt])
+  @@index([authorId, createdAt])
 }
 
 enum AccountStatus {
@@ -60,39 +81,39 @@ model UserAccess {
   updatedAt  DateTime      @updatedAt
 
   profile MemberProfile?
+  stories Story[]
 
   @@index([status, createdAt])
 }
 
-
 model MemberProfile {
-  id                String   @id @default(cuid())
-  authUserId        String   @unique
+  id         String @id @default(cuid())
+  authUserId String @unique
 
   // Personal information
-  displayName       String
-  location          String?
-  occupation        String?
-  bio               String?  @db.Text
-  photoUrl          String?
+  displayName String
+  location    String?
+  occupation  String?
+  bio         String? @db.Text
+  photoUrl    String?
 
   // Activity interests
-  interests         String[] @default([])
+  interests String[] @default([])
 
   // Optional story or testimony
-  storyTitle        String?
-  story             String?  @db.Text
-  storyType         String?
+  storyTitle String?
+  story      String? @db.Text
+  storyType  String?
 
   // Privacy and communication
-  shareProfile      Boolean  @default(false)
-  shareStory        Boolean  @default(false)
-  allowMessages     Boolean  @default(false)
+  shareProfile  Boolean @default(false)
+  shareStory    Boolean @default(false)
+  allowMessages Boolean @default(false)
 
   // Timestamps
-  createdAt         DateTime @default(now())
-  updatedAt         DateTime @updatedAt
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
   // Link profile to approved account record
-    userAccess UserAccess @relation(fields: [authUserId], references: [authUserId], onDelete: Cascade)
+  userAccess UserAccess @relation(fields: [authUserId], references: [authUserId], onDelete: Cascade)
 }

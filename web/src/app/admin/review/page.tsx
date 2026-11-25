@@ -1,6 +1,7 @@
 import { requireAdminAccess } from "@/lib/auth/access";
 import { AccessActions } from "@/components/admin/access-actions";
 import { prisma } from "@/lib/prisma";
+import { StoryReviewActions } from "@/components/admin/story-review-actions";
 
 export const instant = false;
 
@@ -17,6 +18,11 @@ export default async function AdminReviewPage() {
             status: true,
             createdAt: true,
         },
+    });
+    const pendingStories = await prisma.story.findMany({
+        where: { status: "PENDING" },
+        orderBy: { createdAt: "asc" },
+        include: { author: { select: { name: true, email: true } } },
     });
 
     return (
@@ -214,6 +220,22 @@ export default async function AdminReviewPage() {
                     </div>
                 )}
             </div>
+            <section style={{ maxWidth: 950, margin: "32px auto", padding: "0 20px" }}>
+                <h2>Story review</h2>
+                {pendingStories.length === 0 ? <p>No stories awaiting review.</p> : (
+                    <div style={{ display: "grid", gap: 16 }}>
+                        {pendingStories.map((story) => (
+                            <article key={story.id} style={{ border: "1px solid #dbe5e7", borderRadius: 12, padding: 20 }}>
+                                <h3>{story.title}</h3>
+                                <p>From {story.author.name} ({story.author.email})</p>
+                                <p style={{ whiteSpace: "pre-wrap" }}>{story.content}</p>
+                                <p>Submitted {story.createdAt.toLocaleDateString()}</p>
+                                <StoryReviewActions storyId={story.id} />
+                            </article>
+                        ))}
+                    </div>
+                )}
+            </section>
         </main>
     );
 }

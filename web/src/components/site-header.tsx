@@ -25,7 +25,9 @@ export function SiteHeader() {
             <nav className={styles.nav} aria-label="Main navigation">
                 <Link href="/">Home</Link>
                 <Link href="/activities">Explore Activities</Link>
+                <Link href="/activities/events">Community Events</Link>
                 <Link href="/members">Meet Our Members</Link>
+                <Link href="/stories">Stories</Link>
                 <Link href="/about">About Us</Link>
             </nav>
         </header>
