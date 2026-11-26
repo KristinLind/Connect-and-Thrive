@@ -20,14 +20,20 @@ export default function UpcomingEventsBanner({
 
             <div className={styles.content}>
                 <h2>Upcoming Events</h2>
+
                 <p>{description}</p>
+
                 <p className={styles.notice}>
-                    New events will appear here when
-                    community members create them.
+                    Discover events created by community
+                    members and find opportunities to
+                    connect with new friends.
                 </p>
             </div>
 
-            <Link href="/events" className={styles.button}>
+            <Link
+                href="/activities/events"
+                className={styles.button}
+            >
                 View Events →
             </Link>
         </section>

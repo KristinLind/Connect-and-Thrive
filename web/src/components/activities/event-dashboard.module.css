@@ -1,0 +1,194 @@
+.page {
+    max-width: 1050px;
+    margin: 0 auto;
+    padding: 40px 24px 80px;
+}
+
+.pageHeader {
+    max-width: 720px;
+    margin: 0 auto 32px;
+    text-align: center;
+}
+
+.pageHeader h1 {
+    color: #183b45;
+    font-size: 2.4rem;
+    margin: 0 0 12px;
+}
+
+.pageHeader p {
+    color: #425466;
+    line-height: 1.6;
+    margin: 0;
+}
+
+.formCard {
+    width: 100%;
+    max-width: 720px;
+    margin: 0 auto;
+    box-sizing: border-box;
+    background: #ffffff;
+    border-radius: 18px;
+    padding: 36px;
+    box-shadow: 0 8px 30px rgba(20, 52, 62, 0.12);
+    border: 1px solid #e5e9e8;
+}
+
+.formCard h2 {
+    color: #126a73;
+    margin: 0 0 8px;
+    font-size: 1.65rem;
+}
+
+.intro {
+    color: #5b6872;
+    margin-bottom: 28px;
+}
+
+.form {
+    display: flex;
+    flex-direction: column;
+    gap: 22px;
+}
+
+.field {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 8px;
+}
+
+.field label {
+    display: block;
+    font-weight: 600;
+    color: #20364a;
+    font-size: 0.95rem;
+}
+
+.field input,
+.field textarea {
+    display: block;
+    box-sizing: border-box;
+    width: 100%;
+    padding: 13px 15px;
+    border: 1px solid #cbd5d8;
+    border-radius: 8px;
+    background: #ffffff;
+    color: #20364a;
+    font: inherit;
+}
+
+.field textarea {
+    resize: vertical;
+    min-height: 115px;
+}
+
+.field input:focus,
+.field textarea:focus {
+    outline: 2px solid #16818a;
+    outline-offset: 1px;
+}
+
+.helper {
+    color: #697680;
+    font-size: 0.85rem;
+    margin: 0;
+}
+
+.createButton {
+    padding: 14px 20px;
+    border: none;
+    border-radius: 9px;
+    background: #126a73;
+    color: white;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.createButton:hover:not(:disabled) {
+    background: #0c535b;
+}
+
+.createButton:disabled {
+    opacity: 0.65;
+    cursor: not-allowed;
+}
+
+.error {
+    color: #b42318;
+    font-weight: 500;
+}
+
+.eventsSection {
+    margin-top: 24px;
+    margin-bottom: 48px;
+}
+
+.eventsSection h2 {
+    color: #183b45;
+    margin-bottom: 20px;
+}
+
+.emptyState {
+    background: #ffffff;
+    padding: 28px;
+    border-radius: 14px;
+    border: 1px solid #e5e9e8;
+    color: #5b6872;
+}
+
+.eventGrid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 20px;
+}
+
+.eventCard {
+    background: #ffffff;
+    border-radius: 14px;
+    padding: 24px;
+    box-shadow: 0 5px 20px rgba(20, 52, 62, 0.09);
+    border: 1px solid #e5e9e8;
+}
+
+.eventCard h3 {
+    color: #126a73;
+    margin-top: 0;
+}
+
+.eventMeta {
+    color: #5b6872;
+    font-size: 0.9rem;
+}
+
+.eventActions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 12px;
+    margin-top: 20px;
+}
+
+.deleteButton {
+    background: #fff1ef;
+    color: #a33b32;
+    border: 1px solid #f3c7c1;
+    border-radius: 8px;
+    padding: 10px 14px;
+    cursor: pointer;
+}
+
+@media (max-width: 640px) {
+    .page {
+        padding: 24px 16px 60px;
+    }
+
+    .formCard {
+        padding: 22px 18px;
+    }
+
+    .pageHeader h1 {
+        font-size: 2rem;
+    }
+}

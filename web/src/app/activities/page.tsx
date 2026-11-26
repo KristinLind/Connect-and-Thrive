@@ -1,6 +1,9 @@
 import Image from "next/image";
 import Link from "next/link";
 import styles from "./page.module.css";
+import { getCurrentAccess } from "@/lib/auth/access";
+
+export const instant = false;
 
 const categories = [
   {
@@ -41,7 +44,12 @@ const categories = [
   },
 ];
 
-export default function ExploreActivities() {
+export default async function ExploreActivities() {
+  const current = await getCurrentAccess();
+
+  const isApprovedMember =
+    current?.access?.status === "APPROVED";
+
   return (
     <div className={styles.page}>
       <main className={styles.main}>
@@ -132,10 +140,36 @@ export default function ExploreActivities() {
               </div>
             </article>
           </div>
+
         </section>
+        {isApprovedMember && (
+          <section className={styles.createEventSection}>
+            <div className={styles.createEventCard}>
+              <span className={styles.sectionLabel}>
+                BRING PEOPLE TOGETHER
+              </span>
+
+              <h2>Have an Activity in Mind?</h2>
+
+              <p>
+                Have an idea for a fun activity, service project,
+                or social gathering? Create your own event and
+                invite others to join you!
+              </p>
+
+              <Link
+                href="/activities/events"
+                className={styles.createEventButton}
+              >
+                + Create an Event
+              </Link>
+            </div>
+          </section>
+        )}
       </main>
 
       <footer className={styles.footer}>
+
         <h3>Connect & Thrive</h3>
         <p>
           Building friendships. Creating connections. Strengthening

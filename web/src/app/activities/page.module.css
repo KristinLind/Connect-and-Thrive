@@ -199,3 +199,79 @@
   font-size: 0.8rem;
   opacity: 0.8;
 }
+
+/* Create an Event invitation */
+
+.createEventSection {
+  width: 100%;
+  margin: 64px auto 48px;
+}
+
+.createEventCard {
+  max-width: 850px;
+  margin: 0 auto;
+  padding: 48px 32px;
+  box-sizing: border-box;
+  background: #ffffff;
+  border: 1px solid #e5e9e8;
+  border-radius: 20px;
+  box-shadow: 0 8px 30px rgba(20, 52, 62, 0.12);
+  text-align: center;
+}
+
+.createEventCard h2 {
+  color: #126a73;
+  font-size: 2rem;
+  margin: 16px 0;
+}
+
+.createEventCard p {
+  max-width: 600px;
+  margin: 0 auto 28px;
+  color: #425466;
+  font-size: 1.05rem;
+  line-height: 1.7;
+}
+
+.createEventButton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 14px 30px;
+  background: #126a73;
+  color: #ffffff;
+  border-radius: 10px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: background 0.2s ease, transform 0.2s ease;
+}
+
+.createEventButton:hover {
+  background: #0c535b;
+  transform: translateY(-2px);
+}
+
+.createEventButton:focus-visible {
+  outline: 3px solid #ff7f70;
+  outline-offset: 3px;
+}
+
+@media (max-width: 640px) {
+  .createEventSection {
+    margin: 40px auto;
+  }
+
+  .createEventCard {
+    padding: 32px 20px;
+    border-radius: 14px;
+  }
+
+  .createEventCard h2 {
+    font-size: 1.6rem;
+  }
+
+  .createEventButton {
+    width: 100%;
+    box-sizing: border-box;
+  }
+}
