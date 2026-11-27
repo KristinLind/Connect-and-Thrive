@@ -1,7 +1,7 @@
-
 "use client";
 
 import { useCallback, useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
 
 type Message = {
     id: string;
@@ -9,6 +9,7 @@ type Message = {
     senderId: string;
     content: string;
     createdAt: string;
+    readAt: string | null;
 };
 
 type ConversationChatProps = {
@@ -20,6 +21,8 @@ export default function ConversationChat({
     connectionId,
     currentUserId,
 }: ConversationChatProps) {
+    const router = useRouter();
+
     const [messages, setMessages] = useState<Message[]>([]);
     const [content, setContent] = useState("");
     const [loading, setLoading] = useState(true);
@@ -27,28 +30,71 @@ export default function ConversationChat({
     const [error, setError] = useState("");
 
     const loadMessages = useCallback(async () => {
+        const messageUrl =
+            `/api/connections/${encodeURIComponent(connectionId)}/messages`;
+
         try {
-            const response = await fetch(
-                `/api/connections/${encodeURIComponent(connectionId)}/messages`,
-                { cache: "no-store" }
-            );
+            const response = await fetch(messageUrl, {
+                cache: "no-store",
+            });
 
             if (!response.ok) {
                 throw new Error("Unable to load messages.");
             }
 
             const data = await response.json();
-            setMessages(data.messages);
+            const loadedMessages: Message[] = data.messages;
+
+            setMessages(loadedMessages);
             setError("");
+
+            // Identify unread messages received from the other member.
+            const unreadMessageIds = loadedMessages
+                .filter(
+                    (message) =>
+                        message.senderId !== currentUserId &&
+                        message.readAt === null
+                )
+                .map((message) => message.id);
+
+            // Mark incoming messages as read.
+            if (unreadMessageIds.length > 0) {
+                const readResponse = await fetch(messageUrl, {
+                    method: "PATCH",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify({
+                        messageIds: unreadMessageIds,
+                    }),
+                });
+
+                if (!readResponse.ok) {
+                    setError("Unable to update message read status.");
+                    return;
+                }
+
+                // Refresh the notification bell and server components.
+                router.refresh();
+            }
         } catch {
+            setMessages([]);
             setError("Unable to load messages. Please try again.");
         } finally {
             setLoading(false);
         }
-    }, [connectionId]);
+    }, [connectionId, currentUserId, router]);
 
     useEffect(() => {
         void loadMessages();
+
+        const interval = window.setInterval(() => {
+            void loadMessages();
+        }, 5000);
+
+        return () => {
+            window.clearInterval(interval);
+        };
     }, [loadMessages]);
 
     async function sendMessage(event: React.FormEvent<HTMLFormElement>) {

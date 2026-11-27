@@ -1,9 +1,9 @@
 import { redirect } from "next/navigation";
-import { auth } from "@/lib/auth/server";
+import { getRequestSession } from "@/lib/auth/server";
 import { prisma } from "@/lib/prisma";
 
 export async function getCurrentAccess() {
-    const { data: session } = await auth.getSession();
+    const { data: session } = await getRequestSession();
 
     if (!session?.user) {
         return null;

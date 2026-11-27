@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { notFound, redirect } from "next/navigation";
 import { Suspense } from "react";
-import { auth } from "@/lib/auth/server";
+import { getRequestSession } from "@/lib/auth/server";
 import { prisma } from "@/lib/prisma";
 import ConversationChat from "@/components/connections/ConversationChat";
 
@@ -24,7 +24,7 @@ export default function MessagesPage({ params }: PageProps) {
 }
 
 async function MessagesContent({ params }: PageProps) {
-    const { data: session } = await auth.getSession();
+    const { data: session } = await getRequestSession();
 
     if (!session?.user) {
         redirect("/sign-in");

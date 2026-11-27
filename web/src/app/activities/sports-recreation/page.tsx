@@ -51,7 +51,7 @@ const sports = [
     title: "Arch Hiking",
     description:
       "Explore beautiful trails and natural rock formations while enjoying an unforgettable hike with friends.",
-    image: "/images/Arch hike.webp",
+    image: "/images/arch hike.webp",
   },
   {
     title: "Cross-Country Skiing",

@@ -1,10 +1,13 @@
-
 import { auth } from "@/lib/auth/server";
 import { prisma } from "@/lib/prisma";
 import { storage, PROFILE_PHOTO_BUCKET } from "@/lib/storage";
 import { GetObjectCommand } from "@aws-sdk/client-s3";
+import { connection } from "next/server";
 
 export async function GET(request: Request) {
+    // Member photographs require request-time authentication.
+    await connection();
+
     try {
         // Only signed-in, approved members can view photographs
         const { data: session } = await auth.getSession();

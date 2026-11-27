@@ -392,3 +392,25 @@
         width: min(270px, calc(100vw - 32px));
     }
 }
+
+/* Active notification bell */
+
+.notificationButtonActive {
+    color: var(--coral);
+    background-color: #fff0ed;
+}
+
+.notificationButtonActive svg {
+    fill: var(--coral);
+    stroke: var(--coral);
+}
+
+.notificationButtonActive:hover {
+    color: var(--coral);
+    background-color: #ffe2dc;
+}
+
+.notificationButtonActive:focus-visible {
+    outline: 2px solid var(--coral);
+    outline-offset: 3px;
+}
