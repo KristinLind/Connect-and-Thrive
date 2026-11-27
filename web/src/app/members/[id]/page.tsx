@@ -4,6 +4,7 @@ import { notFound, redirect } from "next/navigation";
 import { Suspense } from "react";
 import { auth } from "@/lib/auth/server";
 import { prisma } from "@/lib/prisma";
+import RequestConnectButton from "@/components/connections/RequestConnectButton";
 
 type PageProps = {
     params: Promise<{ id: string }>;
@@ -161,6 +162,7 @@ async function MemberDetailContent({ params }: PageProps) {
                         .join(" · ")}
                 </p>
 
+
                 {profile.authUserId !== session.user.id && (
                     <div
                         style={{
@@ -171,24 +173,7 @@ async function MemberDetailContent({ params }: PageProps) {
                         }}
                     >
                         {profile.allowMessages ? (
-                            <button
-                                type="button"
-                                disabled
-                                title="Connection requests are coming soon"
-                                style={{
-                                    backgroundColor: "#087b83",
-                                    color: "#ffffff",
-                                    padding: "12px 26px",
-                                    border: "none",
-                                    borderRadius: "10px",
-                                    fontSize: "1rem",
-                                    fontWeight: 600,
-                                    opacity: 0.65,
-                                    cursor: "not-allowed",
-                                }}
-                            >
-                                Request to Connect
-                            </button>
+                            <RequestConnectButton recipientId={profile.authUserId} />
                         ) : (
                             <p
                                 style={{
@@ -201,6 +186,7 @@ async function MemberDetailContent({ params }: PageProps) {
                         )}
                     </div>
                 )}
+
 
                 {title && (
                     <h2

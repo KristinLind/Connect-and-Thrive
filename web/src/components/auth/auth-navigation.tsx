@@ -29,6 +29,37 @@ export async function AuthNavigation() {
         },
     });
 
+    // Count pending invitations received by this member
+    const pendingRequestCount =
+        await prisma.connectionRequest.count({
+            where: {
+                recipientId: session.user.id,
+                status: "PENDING",
+            },
+        });
+
+    // Count unread incoming private messages
+    const unreadMessageCount =
+        await prisma.connectionMessage.count({
+            where: {
+                readAt: null,
+                senderId: {
+                    not: session.user.id,
+                },
+                connection: {
+                    status: "ACCEPTED",
+                    OR: [
+                        { senderId: session.user.id },
+                        { recipientId: session.user.id },
+                    ],
+                },
+            },
+        });
+
+    // Combined notification count
+    const totalNotificationCount =
+        pendingRequestCount + unreadMessageCount;
+
     const displayName =
         profile?.displayName || session.user.name || "Member";
 
@@ -40,14 +71,24 @@ export async function AuthNavigation() {
 
     return (
         <div className={styles.authAction}>
-
-
             {/* NOTIFICATION BELL */}
-            <details className={styles.notificationMenu}>
+            <details
+                className={styles.notificationMenu}
+                style={{ position: "relative" }}
+            >
                 <summary
                     className={styles.notificationButton}
-                    aria-label="Open member notifications"
-                    title="Notifications"
+                    style={{ position: "relative" }}
+                    aria-label={
+                        totalNotificationCount > 0
+                            ? `Notifications: ${totalNotificationCount} new notifications`
+                            : "Open member notifications"
+                    }
+                    title={
+                        totalNotificationCount > 0
+                            ? `${totalNotificationCount} new notifications`
+                            : "Notifications"
+                    }
                 >
                     <svg
                         width="25"
@@ -63,6 +104,33 @@ export async function AuthNavigation() {
                         <path d="M18 8a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9" />
                         <path d="M10 21h4" />
                     </svg>
+
+                    {/* Coral badge remains visible when menu is closed */}
+                    {totalNotificationCount > 0 && (
+                        <span
+                            aria-hidden="true"
+                            style={{
+                                position: "absolute",
+                                top: "-7px",
+                                right: "-7px",
+                                backgroundColor: "#ff7467",
+                                color: "#ffffff",
+                                borderRadius: "999px",
+                                minWidth: "19px",
+                                height: "19px",
+                                padding: "0 4px",
+                                fontSize: "0.7rem",
+                                fontWeight: 700,
+                                display: "flex",
+                                alignItems: "center",
+                                justifyContent: "center",
+                                pointerEvents: "none",
+                                boxSizing: "border-box",
+                            }}
+                        >
+                            {totalNotificationCount}
+                        </span>
+                    )}
                 </summary>
 
                 <div className={styles.notificationDropdown}>
@@ -70,8 +138,42 @@ export async function AuthNavigation() {
                         Notifications
                     </h3>
 
-                    <Link href="/connections">
+                    {/* Highlight pending connection requests */}
+                    <Link
+                        href="/connections"
+                        style={
+                            pendingRequestCount > 0
+                                ? {
+                                    backgroundColor: "#fff0ed",
+                                    color: "#b94437",
+                                    fontWeight: 700,
+                                    borderRadius: "8px",
+                                }
+                                : undefined
+                        }
+                    >
                         Connection Requests
+                        {pendingRequestCount > 0 &&
+                            ` (${pendingRequestCount} new)`}
+                    </Link>
+
+                    {/* Highlight unread private messages */}
+                    <Link
+                        href="/connections"
+                        style={
+                            unreadMessageCount > 0
+                                ? {
+                                    backgroundColor: "#fff0ed",
+                                    color: "#b94437",
+                                    fontWeight: 700,
+                                    borderRadius: "8px",
+                                }
+                                : undefined
+                        }
+                    >
+                        Unread Messages
+                        {unreadMessageCount > 0 &&
+                            ` (${unreadMessageCount} new)`}
                     </Link>
 
                     <Link href="/saved-activities">
@@ -135,7 +237,6 @@ export async function AuthNavigation() {
                     <SignOutButton />
                 </div>
             </details>
-
         </div>
     );
 }
