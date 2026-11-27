@@ -2,7 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { notFound, redirect } from "next/navigation";
 import { Suspense } from "react";
-import { auth } from "@/lib/auth/server";
+import { getRequestSession } from "@/lib/auth/server";
 import { prisma } from "@/lib/prisma";
 import RequestConnectButton from "@/components/connections/RequestConnectButton";
 
@@ -26,7 +26,7 @@ export default function MemberDetailPage({ params }: PageProps) {
 
 async function MemberDetailContent({ params }: PageProps) {
     // Only approved members can view the member directory.
-    const { data: session } = await auth.getSession();
+    const { data: session } = await getRequestSession();
 
     if (!session?.user) {
         redirect("/sign-in");

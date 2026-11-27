@@ -3,7 +3,7 @@ import Link from "next/link";
 import Image from "next/image";
 import homeStyles from "../page.module.css";
 import styles from "./page.module.css";
-import { auth } from "@/lib/auth/server";
+import { getRequestSession } from "@/lib/auth/server";
 import { prisma } from "@/lib/prisma";
 import { redirect } from "next/navigation";
 
@@ -17,7 +17,7 @@ export default function MembersPage() {
 
 async function MembersContent() {
     // Check whether the visitor is signed in
-    const { data: session } = await auth.getSession();
+    const { data: session } = await getRequestSession();
 
     if (!session?.user) {
         redirect("/sign-in");
