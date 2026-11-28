@@ -37,6 +37,35 @@
     line-height: 1.7;
 }
 
+.listHeading {
+    color: var(--navy);
+    margin: 0 0 22px;
+    font-size: 1.7rem;
+}
+
+.availableSection {
+    margin-top: 56px;
+}
+
+.adminSection {
+    max-width: 760px;
+    margin: 0 auto 56px;
+    padding: 28px;
+    background: var(--white);
+    border-radius: 18px;
+    box-shadow: 0 5px 20px rgba(32, 52, 74, 0.09);
+}
+
+.adminSection h2 {
+    color: var(--teal);
+    margin-top: 0;
+}
+
+.adminSection > p {
+    color: #526171;
+    line-height: 1.7;
+}
+
 .grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr));
@@ -58,6 +87,13 @@
     color: var(--teal);
     font-size: 1.4rem;
     font-family: var(--font-heading);
+}
+
+.card h3 {
+    color: var(--teal);
+    font-size: 1.4rem;
+    font-family: var(--font-heading);
+    margin: 0;
 }
 
 .card p {

@@ -3,6 +3,7 @@
 import { useState, type SubmitEvent } from "react";
 import { useRouter } from "next/navigation";
 import { authClient } from "@/lib/auth/client";
+import { getPostLoginDestination } from "@/lib/auth/api-access-policy";
 
 export function SignInForm() {
     const router = useRouter();
@@ -75,11 +76,8 @@ export function SignInForm() {
                 isAdmin: boolean;
             };
 
-            let destination: string;
-
-            if (access.status === "BLOCKED") {
-                destination = "/blocked";
-            } else if (access.status === "PENDING") {
+            let hasProfile = false;
+            if (access.status === "PENDING") {
                 const profileResponse = await fetch("/api/profile", {
                     cache: "no-store",
                 });
@@ -91,14 +89,14 @@ export function SignInForm() {
 
                 const data = await profileResponse.json();
 
-                destination = data.profile
-                    ? "/pending-approval"
-                    : "/register";
-            } else if (access.isAdmin) {
-                destination = "/admin/review";
-            } else {
-                destination = "/";
+                hasProfile = Boolean(data.profile);
             }
+
+            const destination = getPostLoginDestination({
+                status: access.status,
+                isAdmin: access.isAdmin,
+                hasProfile,
+            });
 
             router.replace(destination);
             router.refresh();
