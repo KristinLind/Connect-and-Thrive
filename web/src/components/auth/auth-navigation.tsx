@@ -75,18 +75,6 @@ export async function AuthNavigation() {
                         My Profile
                     </Link>
 
-                    <Link href="/connections">
-                        My Connections
-                    </Link>
-
-                    <Link href="/saved-activities">
-                        My Saved Activities
-                    </Link>
-
-                    <Link href="/my-groups">
-                        My Groups
-                    </Link>
-
                     <SignOutButton />
                 </div>
             </details>

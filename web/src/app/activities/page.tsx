@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import styles from "./page.module.css";
 import { getCurrentAccess } from "@/lib/auth/access";
+import UpcomingEventsBanner from "@/components/UpcomingEventsBanner";
 
 export const instant = false;
 
@@ -143,28 +144,7 @@ export default async function ExploreActivities() {
 
         </section>
         {isApprovedMember && (
-          <section className={styles.createEventSection}>
-            <div className={styles.createEventCard}>
-              <span className={styles.sectionLabel}>
-                BRING PEOPLE TOGETHER
-              </span>
-
-              <h2>Have an Activity in Mind?</h2>
-
-              <p>
-                Have an idea for a fun activity, service project,
-                or social gathering? Create your own event and
-                invite others to join you!
-              </p>
-
-              <Link
-                href="/activities/events"
-                className={styles.createEventButton}
-              >
-                + Create an Event
-              </Link>
-            </div>
-          </section>
+          <UpcomingEventsBanner />
         )}
       </main>
 

@@ -15,6 +15,7 @@ model Activity {
   location    String
   date        DateTime
   image       String?
+  capacity    Int?
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
   createdById String

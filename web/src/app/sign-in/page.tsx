@@ -34,27 +34,6 @@ export default function SignInPage() {
 
                 <SignInForm />
 
-                <div className="auth-story">
-                    <h2>Share Your Story</h2>
-
-                    <p>
-                        Have an experience or testimony to share?
-                        Add your story and a photo to inspire others
-                        in our community.
-                    </p>
-
-                    <Link
-                        href="/sign-in?next=%2Fshare-story"
-                        className="auth-story-button"
-                    >
-                        Share Your Story
-                    </Link>
-
-                    <p className="auth-story-note">
-                        Available to registered and approved members
-                    </p>
-                </div>
-
                 <div className="auth-footer">
                     <p>
                         New to Connect &amp; Thrive?{" "}

@@ -143,7 +143,7 @@ export default function Home() {
             community are waiting for you.
           </p>
 
-          <a href="#activities" className={styles.joinButton}>
+          <a href="/activities" className={styles.joinButton}>
             Discover Your Community
           </a>
         </section>

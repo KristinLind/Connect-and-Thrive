@@ -1,4 +1,3 @@
-
 "use client";
 
 import { useEffect, useState } from "react";
@@ -8,15 +7,20 @@ import styles from "@/components/site-header.module.css";
 type NotificationCounts = {
     pendingRequestCount: number;
     unreadMessageCount: number;
+    registeredActivityCount: number;
     totalNotificationCount: number;
 };
 
+const emptyCounts: NotificationCounts = {
+    pendingRequestCount: 0,
+    unreadMessageCount: 0,
+    registeredActivityCount: 0,
+    totalNotificationCount: 0,
+};
+
 export default function NotificationBell() {
-    const [counts, setCounts] = useState<NotificationCounts>({
-        pendingRequestCount: 0,
-        unreadMessageCount: 0,
-        totalNotificationCount: 0,
-    });
+    const [counts, setCounts] =
+        useState<NotificationCounts>(emptyCounts);
 
     useEffect(() => {
         let active = true;
@@ -36,16 +40,17 @@ export default function NotificationBell() {
 
                 if (response.status === 401 || response.status === 403) {
                     if (active) {
-                        setCounts({
-                            pendingRequestCount: 0,
-                            unreadMessageCount: 0,
-                            totalNotificationCount: 0,
-                        });
+                        setCounts(emptyCounts);
                     }
                     return;
                 }
 
                 if (!response.ok) return;
+
+                const contentType =
+                    response.headers.get("content-type") || "";
+
+                if (!contentType.includes("application/json")) return;
 
                 const data: NotificationCounts = await response.json();
 
@@ -105,6 +110,7 @@ export default function NotificationBell() {
     const {
         pendingRequestCount,
         unreadMessageCount,
+        registeredActivityCount,
         totalNotificationCount,
     } = counts;
 
@@ -126,12 +132,12 @@ export default function NotificationBell() {
                     }`}
                 aria-label={
                     hasNotifications
-                        ? `Notifications: ${totalNotificationCount} new notifications`
+                        ? `Notifications: ${totalNotificationCount} items requiring attention`
                         : "Open member notifications"
                 }
                 title={
                     hasNotifications
-                        ? "You have new notifications"
+                        ? "You have notifications or upcoming events"
                         : "Notifications"
                 }
             >
@@ -182,6 +188,10 @@ export default function NotificationBell() {
                         ` (${unreadMessageCount} new)`}
                 </Link>
 
+                <Link href="/connections">
+                    My Connections
+                </Link>
+
                 <Link href="/saved-activities">
                     Saved Activities
                 </Link>
@@ -190,10 +200,18 @@ export default function NotificationBell() {
                     My Groups
                 </Link>
 
-                <div className={styles.notificationComingSoon}>
+                <Link
+                    href="/registered-activities"
+                    style={
+                        registeredActivityCount > 0
+                            ? activeLinkStyle
+                            : undefined
+                    }
+                >
                     Registered Activities
-                    <span>Coming Soon</span>
-                </div>
+                    {registeredActivityCount > 0 &&
+                        ` (${registeredActivityCount})`}
+                </Link>
             </div>
         </details>
     );
