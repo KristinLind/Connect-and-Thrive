@@ -5,16 +5,24 @@ import Link from "next/link";
 import styles from "@/components/site-header.module.css";
 
 type NotificationCounts = {
+    isAdmin: boolean;
     pendingRequestCount: number;
     unreadMessageCount: number;
     registeredActivityCount: number;
+    pendingMemberApprovalCount: number;
+    pendingGroupApprovalCount: number;
+    unreadGroupReviewCount: number;
     totalNotificationCount: number;
 };
 
 const emptyCounts: NotificationCounts = {
+    isAdmin: false,
     pendingRequestCount: 0,
     unreadMessageCount: 0,
     registeredActivityCount: 0,
+    pendingMemberApprovalCount: 0,
+    pendingGroupApprovalCount: 0,
+    unreadGroupReviewCount: 0,
     totalNotificationCount: 0,
 };
 
@@ -108,9 +116,13 @@ export default function NotificationBell() {
     }, []);
 
     const {
+        isAdmin,
         pendingRequestCount,
         unreadMessageCount,
         registeredActivityCount,
+        pendingMemberApprovalCount,
+        pendingGroupApprovalCount,
+        unreadGroupReviewCount,
         totalNotificationCount,
     } = counts;
 
@@ -127,8 +139,8 @@ export default function NotificationBell() {
         <details className={styles.notificationMenu}>
             <summary
                 className={`${styles.notificationButton}${hasNotifications
-                        ? ` ${styles.notificationButtonActive}`
-                        : ""
+                    ? ` ${styles.notificationButtonActive}`
+                    : ""
                     }`}
                 aria-label={
                     hasNotifications
@@ -137,7 +149,7 @@ export default function NotificationBell() {
                 }
                 title={
                     hasNotifications
-                        ? "You have notifications or upcoming events"
+                        ? "You have notifications requiring attention"
                         : "Notifications"
                 }
             >
@@ -161,6 +173,44 @@ export default function NotificationBell() {
                 <h3 className={styles.notificationHeading}>
                     Notifications
                 </h3>
+
+                {isAdmin && (
+                    <>
+                        <Link
+                            href="/admin/review#member-approvals"
+                            style={
+                                pendingMemberApprovalCount > 0
+                                    ? activeLinkStyle
+                                    : undefined
+                            }
+                        >
+                            Member Approval Requests
+                            {pendingMemberApprovalCount > 0 &&
+                                ` (${pendingMemberApprovalCount} new)`}
+                        </Link>
+
+                        <Link
+                            href="/admin/review#group-approvals"
+                            style={
+                                pendingGroupApprovalCount > 0
+                                    ? activeLinkStyle
+                                    : undefined
+                            }
+                        >
+                            Group Approval Requests
+                            {pendingGroupApprovalCount > 0 &&
+                                ` (${pendingGroupApprovalCount} new)`}
+                        </Link>
+
+                        <div
+                            aria-hidden="true"
+                            style={{
+                                borderTop: "1px solid #dbe5e7",
+                                margin: "8px 0",
+                            }}
+                        />
+                    </>
+                )}
 
                 <Link
                     href="/connections"
@@ -196,8 +246,25 @@ export default function NotificationBell() {
                     Saved Activities
                 </Link>
 
+                <Link
+                    href="/my-groups#created-groups"
+                    style={
+                        unreadGroupReviewCount > 0
+                            ? activeLinkStyle
+                            : undefined
+                    }
+                >
+                    Group Approval Updates
+                    {unreadGroupReviewCount > 0 &&
+                        ` (${unreadGroupReviewCount} new)`}
+                </Link>
+
                 <Link href="/my-groups">
                     My Groups
+                </Link>
+
+                <Link href="/my-groups#create-group">
+                    Create a Group
                 </Link>
 
                 <Link

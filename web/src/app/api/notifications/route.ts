@@ -18,11 +18,15 @@ export async function GET() {
         }
 
         const authUserId = access.authUserId;
+        const isAdmin = access.isAdmin;
 
         const [
             pendingRequestCount,
             unreadMessageCount,
             registeredActivityCount,
+            pendingMemberApprovalCount,
+            pendingGroupApprovalCount,
+            unreadGroupReviewCount,
         ] = await Promise.all([
             prisma.connectionRequest.count({
                 where: {
@@ -69,17 +73,54 @@ export async function GET() {
                     },
                 },
             }),
+
+            isAdmin
+                ? prisma.userAccess.count({
+                    where: {
+                        status: "PENDING",
+                        isAdmin: false,
+                    },
+                })
+                : Promise.resolve(0),
+
+            isAdmin
+                ? prisma.group.count({
+                    where: {
+                        status: "PENDING",
+                    },
+                })
+                : Promise.resolve(0),
+
+            prisma.group.count({
+                where: {
+                    createdById: authUserId,
+                    status: {
+                        in: ["APPROVED", "REJECTED"],
+                    },
+                    reviewedAt: {
+                        not: null,
+                    },
+                    reviewNotificationReadAt: null,
+                },
+            }),
         ]);
 
         return Response.json(
             {
+                isAdmin,
                 pendingRequestCount,
                 unreadMessageCount,
                 registeredActivityCount,
+                pendingMemberApprovalCount,
+                pendingGroupApprovalCount,
+                unreadGroupReviewCount,
                 totalNotificationCount:
                     pendingRequestCount +
                     unreadMessageCount +
-                    registeredActivityCount,
+                    registeredActivityCount +
+                    pendingMemberApprovalCount +
+                    pendingGroupApprovalCount +
+                    unreadGroupReviewCount,
             },
             {
                 headers: {

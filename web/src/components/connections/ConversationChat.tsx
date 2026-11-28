@@ -86,13 +86,16 @@ export default function ConversationChat({
     }, [connectionId, currentUserId, router]);
 
     useEffect(() => {
-        void loadMessages();
+        const initialLoad = window.setTimeout(() => {
+            void loadMessages();
+        }, 0);
 
         const interval = window.setInterval(() => {
             void loadMessages();
         }, 5000);
 
         return () => {
+            window.clearTimeout(initialLoad);
             window.clearInterval(interval);
         };
     }, [loadMessages]);
