@@ -1,4 +1,3 @@
-
 generator client {
   provider = "prisma-client"
   output   = "../src/generated/prisma"
@@ -65,6 +64,8 @@ model UserAccess {
 
   sentConnections     ConnectionRequest[] @relation("SentConnections")
   receivedConnections ConnectionRequest[] @relation("ReceivedConnections")
+  groupMemberships    GroupMembership[]
+  createdGroups       Group[]             @relation("CreatedGroups")
 
   @@index([status, createdAt])
 }
@@ -121,8 +122,8 @@ model ConnectionRequest {
 
   messages ConnectionMessage[]
 
-  @@index([recipientId, status])
   @@unique([senderId, recipientId])
+  @@index([recipientId, status])
 }
 
 model ConnectionMessage {
@@ -136,4 +137,49 @@ model ConnectionMessage {
   connection ConnectionRequest @relation(fields: [connectionId], references: [id], onDelete: Cascade)
 
   @@index([connectionId, createdAt])
+}
+
+enum GroupStatus {
+  PENDING
+  APPROVED
+  REJECTED
+}
+
+model Group {
+  id              String      @id @default(cuid())
+  name            String
+  description     String      @db.Text
+  meetingSchedule String      @db.Text
+  location        String
+  status          GroupStatus @default(PENDING)
+  createdById     String?
+  createdAt       DateTime    @default(now())
+  updatedAt       DateTime    @updatedAt
+
+  // Administrator review and member notification
+  reviewedAt               DateTime?
+  reviewNotificationReadAt DateTime?
+  reviewFeedback           String?   @db.Text
+
+  creator UserAccess? @relation("CreatedGroups", fields: [createdById], references: [authUserId], onDelete: SetNull)
+
+  memberships GroupMembership[]
+
+  @@index([name])
+  @@index([status, createdAt])
+  @@index([createdById])
+  @@index([createdById, reviewNotificationReadAt])
+}
+
+model GroupMembership {
+  id         String   @id @default(cuid())
+  groupId    String
+  authUserId String
+  joinedAt   DateTime @default(now())
+
+  group  Group      @relation(fields: [groupId], references: [id], onDelete: Cascade)
+  member UserAccess @relation(fields: [authUserId], references: [authUserId], onDelete: Cascade)
+
+  @@unique([groupId, authUserId])
+  @@index([authUserId, joinedAt])
 }

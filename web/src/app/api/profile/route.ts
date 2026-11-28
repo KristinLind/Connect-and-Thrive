@@ -1,5 +1,6 @@
 import { auth } from "@/lib/auth/server";
 import { prisma } from "@/lib/prisma";
+import { canAccessProfile } from "@/lib/auth/api-access-policy";
 
 const allowedInterests = [
     "Outdoor Adventures",
@@ -21,11 +22,7 @@ async function getProfileUser() {
         where: { authUserId: session.user.id },
     });
 
-    if (
-        !access ||
-        (access.status !== "PENDING" &&
-            access.status !== "APPROVED")
-    ) {
+    if (!canAccessProfile(access?.status ?? null)) {
         return {
             error: "Profile access is not available for this account.",
             status: 403,

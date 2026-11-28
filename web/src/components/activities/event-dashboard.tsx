@@ -193,6 +193,36 @@ export function EventDashboard({
                         : "Discover upcoming activities, make new friends, and bring your community together."}
                 </p>
 
+                {!registeredOnly && (
+                    <div
+                        style={{
+                            display: "flex",
+                            justifyContent: "center",
+                            flexWrap: "wrap",
+                            gap: 14,
+                            marginTop: 24,
+                        }}
+                    >
+                        <Link
+                            href="#create-event"
+                            className={styles.joinButton}
+                        >
+                            + Create an Event
+                        </Link>
+
+                        <Link
+                            href="/my-groups#create-group"
+                            className={styles.joinButton}
+                            style={{
+                                background: "#ff806b",
+                                color: "#20364d",
+                            }}
+                        >
+                            + Create a Group
+                        </Link>
+                    </div>
+                )}
+
                 {registeredOnly && (
                     <Link
                         href="/activities/events"
@@ -299,7 +329,7 @@ export function EventDashboard({
 
                                     {activity.isRegistered && (
                                         <p className={styles.registeredStatus}>
-                                            ✓ You're registered!
+                                            ✓ You&apos;re registered!
                                         </p>
                                     )}
                                 </div>
@@ -362,13 +392,46 @@ export function EventDashboard({
             </section>
 
             {!registeredOnly && (
-                <section className={styles.formCard}>
+                <section
+                    id="create-event"
+                    className={styles.formCard}
+                    style={{ scrollMarginTop: 160 }}
+                >
                     <h2>Create a Community Event</h2>
 
                     <p className={styles.intro}>
                         Have an activity in mind? Share the details
                         and invite others to join you.
                     </p>
+
+                    <div
+                        style={{
+                            background: "#f0f9f9",
+                            borderRadius: 12,
+                            padding: 18,
+                            margin: "20px 0",
+                            color: "#20364d",
+                        }}
+                    >
+                        <strong>
+                            Planning a recurring activity instead?
+                        </strong>
+
+                        <p style={{ margin: "8px 0 12px" }}>
+                            Start a group based on shared interests
+                            and regular gatherings.
+                        </p>
+
+                        <Link
+                            href="/my-groups#create-group"
+                            style={{
+                                color: "#087b83",
+                                fontWeight: 700,
+                            }}
+                        >
+                            Create a Group →
+                        </Link>
+                    </div>
 
                     <form onSubmit={createEvent} className={styles.form}>
                         <div className={styles.field}>

@@ -4,6 +4,7 @@ import sharp from "sharp";
 
 import { auth } from "@/lib/auth/server";
 import { prisma } from "@/lib/prisma";
+import { canAccessProfile } from "@/lib/auth/api-access-policy";
 import { storage, PROFILE_PHOTO_BUCKET } from "@/lib/storage";
 
 export async function POST(request: NextRequest) {
@@ -23,11 +24,7 @@ export async function POST(request: NextRequest) {
             where: { authUserId },
         });
 
-        if (
-            !access ||
-            (access.status !== "PENDING" &&
-                access.status !== "APPROVED")
-        ) {
+        if (!canAccessProfile(access?.status ?? null)) {
             return NextResponse.json(
                 { error: "Your account cannot upload a photograph." },
                 { status: 403 }

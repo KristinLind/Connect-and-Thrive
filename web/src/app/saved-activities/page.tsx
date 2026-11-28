@@ -32,8 +32,8 @@ export default async function SavedActivitiesPage() {
           <h1>My Saved Activities</h1>
 
           <p>
-            Keep track of activities you're interested in and
-            return to them whenever you're ready.
+            Keep track of activities you&apos;re interested in and
+            return to them whenever you&apos;re ready.
           </p>
         </section>
 
