@@ -1,8 +1,12 @@
 import assert from "node:assert/strict";
 import test from "node:test";
 import {
+    canAccessProfile,
     canManageOwnedResource,
+    getStatusForAdminAction,
     getApiAccessFailure,
+    getPostLoginDestination,
+    isBootstrapAdmin,
 } from "../src/lib/auth/api-access-policy.ts";
 
 test("API authorization distinguishes signed-out, pending, and blocked accounts", () => {
@@ -16,6 +20,34 @@ test("only approved admins can use admin APIs", () => {
     assert.equal(getApiAccessFailure({ signedIn: true, status: "APPROVED", requireAdmin: true, isAdmin: false })?.status, 403);
     assert.equal(getApiAccessFailure({ signedIn: true, status: "APPROVED", requireAdmin: true, isAdmin: true }), null);
     assert.equal(getApiAccessFailure({ signedIn: true, status: "PENDING", requireAdmin: true, isAdmin: true })?.status, 403);
+});
+
+test("registration bootstraps only verified addresses on the admin allowlist", () => {
+    assert.equal(isBootstrapAdmin("  ESSODONG@example.com ", true, "admin@example.com, essodong@example.com"), true);
+    assert.equal(isBootstrapAdmin("essodong@example.com", false, "essodong@example.com"), false);
+    assert.equal(isBootstrapAdmin("other@example.com", true, "essodong@example.com"), false);
+    assert.equal(isBootstrapAdmin("essodong@example.com", true, ""), false);
+});
+
+test("admin approval actions persist the intended access status", () => {
+    assert.equal(getStatusForAdminAction("approve"), "APPROVED");
+    assert.equal(getStatusForAdminAction("block"), "BLOCKED");
+    assert.equal(getStatusForAdminAction("unblock"), "APPROVED");
+});
+
+test("pending members can finish their profile, while blocked or missing accounts cannot", () => {
+    assert.equal(canAccessProfile("PENDING"), true);
+    assert.equal(canAccessProfile("APPROVED"), true);
+    assert.equal(canAccessProfile("BLOCKED"), false);
+    assert.equal(canAccessProfile(null), false);
+});
+
+test("login sends each account state to the correct next screen", () => {
+    assert.equal(getPostLoginDestination({ status: "BLOCKED", isAdmin: false, hasProfile: true }), "/blocked");
+    assert.equal(getPostLoginDestination({ status: "PENDING", isAdmin: false, hasProfile: false }), "/register");
+    assert.equal(getPostLoginDestination({ status: "PENDING", isAdmin: false, hasProfile: true }), "/pending-approval");
+    assert.equal(getPostLoginDestination({ status: "APPROVED", isAdmin: true, hasProfile: false }), "/admin/review");
+    assert.equal(getPostLoginDestination({ status: "APPROVED", isAdmin: false, hasProfile: false }), "/");
 });
 
 test("owners and admins can manage activities, but members cannot edit another member's", () => {

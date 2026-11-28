@@ -1,0 +1,68 @@
+.action {
+    display: grid;
+    justify-items: start;
+    gap: 8px;
+    margin-top: auto;
+}
+
+.button {
+    display: inline-block;
+    background: var(--coral);
+    color: var(--navy);
+    padding: 11px 22px;
+    border-radius: 30px;
+    font: inherit;
+    font-weight: 700;
+    border: none;
+    cursor: pointer;
+    transition: background 0.2s ease;
+}
+
+.button:hover:not(:disabled) {
+    background: var(--gold);
+}
+
+.button:focus-visible {
+    outline: 2px solid var(--navy);
+    outline-offset: 4px;
+}
+
+.button:disabled {
+    opacity: 0.65;
+    cursor: wait;
+}
+
+.form {
+    display: grid;
+    gap: 16px;
+    margin-top: 24px;
+}
+
+.form label {
+    display: grid;
+    gap: 7px;
+    color: var(--navy);
+    font-weight: 600;
+}
+
+.form input,
+.form textarea {
+    width: 100%;
+    box-sizing: border-box;
+    border: 1px solid #cbd5e1;
+    border-radius: 9px;
+    padding: 11px 12px;
+    color: var(--navy);
+    font: inherit;
+}
+
+.form input:focus-visible,
+.form textarea:focus-visible {
+    outline: 2px solid var(--teal);
+    outline-offset: 2px;
+}
+
+.error {
+    color: #b91c1c;
+    margin: 0;
+}

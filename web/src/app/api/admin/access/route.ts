@@ -1,4 +1,5 @@
 import { getAdminApiAccess } from "@/lib/auth/api-access";
+import { getStatusForAdminAction, type AdminAccessAction } from "@/lib/auth/api-access-policy";
 import { prisma } from "@/lib/prisma";
 
 export async function PATCH(request: Request) {
@@ -32,7 +33,7 @@ export async function PATCH(request: Request) {
         );
     }
 
-    const status = body.action === "block" ? "BLOCKED" : "APPROVED";
+    const status = getStatusForAdminAction(body.action as AdminAccessAction);
 
     const updated = await prisma.userAccess.update({
         where: { authUserId: target.authUserId },

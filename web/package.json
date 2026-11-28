@@ -7,7 +7,9 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
-    "test:auth": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON --experimental-strip-types --test tests/api-access-policy.test.mjs"
+    "test:auth": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON --experimental-strip-types --test tests/api-access-policy.test.mjs",
+    "test:groups": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON --experimental-strip-types --test tests/groups.test.mjs",
+    "test:release": "prisma generate && npm run test:auth && npm run test:groups && next typegen && tsc --noEmit && prisma validate --schema prisma/schema.prisma && npm run lint"
   },
   "dependencies": {
     "@aws-sdk/client-s3": "^3.1173.0",

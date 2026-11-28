@@ -1,5 +1,6 @@
 import { auth } from "@/lib/auth/server";
 import { prisma } from "@/lib/prisma";
+import { isBootstrapAdmin } from "@/lib/auth/api-access-policy";
 
 export async function POST() {
     const { data: session } = await auth.getSession();
@@ -12,15 +13,11 @@ export async function POST() {
     const email = user.email.trim().toLowerCase();
     const name = user.name?.trim() || email.split("@")[0];
 
-    const adminEmails = new Set(
-        (process.env.ADMIN_EMAILS ?? "")
-            .split(",")
-            .map((value) => value.trim().toLowerCase())
-            .filter(Boolean),
+    const isAdmin = isBootstrapAdmin(
+        email,
+        user.emailVerified === true,
+        process.env.ADMIN_EMAILS ?? "",
     );
-
-    const isBootstrapAdmin =
-        user.emailVerified === true && adminEmails.has(email);
 
     const access = await prisma.userAccess.upsert({
         where: { authUserId: user.id },
@@ -28,13 +25,13 @@ export async function POST() {
             authUserId: user.id,
             email,
             name,
-            status: isBootstrapAdmin ? "APPROVED" : "PENDING",
-            isAdmin: isBootstrapAdmin,
+            status: isAdmin ? "APPROVED" : "PENDING",
+            isAdmin,
         },
         update: {
             email,
             name,
-            ...(isBootstrapAdmin
+            ...(isAdmin
                 ? { status: "APPROVED", isAdmin: true }
                 : {}),
         },
