@@ -192,3 +192,103 @@
         font-size: 2rem;
     }
 }
+
+/* Event registration and capacity */
+
+.capacitySection {
+    margin-top: 20px;
+    padding-top: 16px;
+    border-top: 1px solid #e5e9e8;
+}
+
+.capacitySummary {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.88rem;
+    font-weight: 600;
+    color: #425466;
+}
+
+.availableStatus {
+    color: #126a73;
+}
+
+.fullStatus {
+    color: #b94437;
+    font-weight: 700;
+}
+
+.capacityTrack {
+    width: 100%;
+    height: 8px;
+    margin-top: 12px;
+    background: #e5e9e8;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.capacityFill {
+    height: 100%;
+    background: #126a73;
+    border-radius: 10px;
+    transition: width 0.3s ease;
+}
+
+.capacityFillFull {
+    height: 100%;
+    background: #e47b6c;
+    border-radius: 10px;
+    transition: width 0.3s ease;
+}
+
+.registeredStatus {
+    color: #126a73;
+    font-weight: 600;
+    font-size: 0.9rem;
+    margin: 14px 0 0;
+}
+
+.joinButton {
+    background: #126a73;
+    color: #ffffff;
+    border: 1px solid #126a73;
+    border-radius: 8px;
+    padding: 10px 14px;
+    font: inherit;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.joinButton:hover:not(:disabled) {
+    background: #0c535b;
+}
+
+.joinButton:disabled {
+    background: #e5e9e8;
+    color: #697680;
+    border-color: #e5e9e8;
+    cursor: not-allowed;
+}
+
+.cancelButton {
+    background: #ffffff;
+    color: #a33b32;
+    border: 1px solid #e47b6c;
+    border-radius: 8px;
+    padding: 10px 14px;
+    font: inherit;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.cancelButton:hover:not(:disabled) {
+    background: #fff1ef;
+}
+
+.cancelButton:disabled {
+    opacity: 0.65;
+    cursor: not-allowed;
+}

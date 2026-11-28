@@ -19,50 +19,67 @@ export async function GET() {
 
         const authUserId = access.authUserId;
 
-        const [pendingRequestCount, unreadMessageCount] =
-            await Promise.all([
-                prisma.connectionRequest.count({
-                    where: {
-                        recipientId: authUserId,
-                        status: "PENDING",
-                    },
-                }),
+        const [
+            pendingRequestCount,
+            unreadMessageCount,
+            registeredActivityCount,
+        ] = await Promise.all([
+            prisma.connectionRequest.count({
+                where: {
+                    recipientId: authUserId,
+                    status: "PENDING",
+                },
+            }),
 
-                prisma.connectionMessage.count({
-                    where: {
-                        readAt: null,
-                        senderId: {
-                            not: authUserId,
-                        },
-                        connection: {
-                            status: "ACCEPTED",
-                            OR: [
-                                { senderId: authUserId },
-                                { recipientId: authUserId },
-                            ],
-                            sender: {
-                                status: "APPROVED",
-                                profile: {
-                                    is: { allowMessages: true },
-                                },
+            prisma.connectionMessage.count({
+                where: {
+                    readAt: null,
+                    senderId: {
+                        not: authUserId,
+                    },
+                    connection: {
+                        status: "ACCEPTED",
+                        OR: [
+                            { senderId: authUserId },
+                            { recipientId: authUserId },
+                        ],
+                        sender: {
+                            status: "APPROVED",
+                            profile: {
+                                is: { allowMessages: true },
                             },
-                            recipient: {
-                                status: "APPROVED",
-                                profile: {
-                                    is: { allowMessages: true },
-                                },
+                        },
+                        recipient: {
+                            status: "APPROVED",
+                            profile: {
+                                is: { allowMessages: true },
                             },
                         },
                     },
-                }),
-            ]);
+                },
+            }),
+
+            prisma.rSVP.count({
+                where: {
+                    userId: authUserId,
+                    activity: {
+                        date: {
+                            gte: new Date(),
+                        },
+                    },
+                },
+            }),
+        ]);
 
         return Response.json(
             {
                 pendingRequestCount,
                 unreadMessageCount,
+                registeredActivityCount,
                 totalNotificationCount:
-                    pendingRequestCount + unreadMessageCount,
+                    pendingRequestCount +
+                    unreadMessageCount +
+                    registeredActivityCount,
             },
             {
                 headers: {
