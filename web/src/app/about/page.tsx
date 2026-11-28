@@ -87,11 +87,6 @@ export default function AboutPage() {
               </p>
 
               <p>
-                Then one day, a friend invited her to a simple
-                game night. That invitation changed everything.
-              </p>
-
-              <p>
                 She found a welcoming group of young adults
                 who shared her faith, values, and interests.
                 Through hiking, cooking, traveling, games,
